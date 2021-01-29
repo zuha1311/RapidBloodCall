@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="#ffffff"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="16dp">
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Date : "
+    android:id="@+id/dateDonatedTextView"
+    android:fontFamily="@font/montserrat"
+    android:textColor="#100c0c"
+    android:textSize="16sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11/12/18"
+        android:id="@+id/dateDonated"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#100c0c"
+        android:layout_toEndOf="@+id/dateDonatedTextView"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/receiverIDTextViewdonated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="65dp"
+        android:text="Receiver ID :"
+        android:textColor="#100c0c"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#43EQ"
+        android:id="@+id/receiverIDdonated"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#100c0c"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Location : "
+        android:id="@+id/locationTextViewdonated"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#6a6a6a"
+        android:textSize="13sp"
+        android:layout_below="@id/dateDonatedTextView"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123, XYZ Apt"
+        android:id="@+id/locationdonated"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#6a6a6a"
+        android:layout_toEndOf="@+id/locationTextViewdonated"
+        android:textSize="13sp"
+        android:maxLength="10"
+        android:singleLine="true"
+        android:layout_below="@id/dateDonated"/>
+
+    <TextView
+        android:id="@+id/qtyTextViewdonated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="52dp"
+        android:text="Quantity : "
+        android:textColor="#6a6a6a"
+        android:textSize="13sp"
+        android:layout_below="@id/receiverIDdonated"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5 units"
+        android:layout_marginTop="5dp"
+        android:id="@+id/quantitydonated"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#6a6a6a"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"
+        android:textSize="13sp"
+        android:layout_below="@id/receiverIDdonated"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_history_line"
+        android:layout_alignParentBottom="true"
+
+        />
+
+
+</RelativeLayout>

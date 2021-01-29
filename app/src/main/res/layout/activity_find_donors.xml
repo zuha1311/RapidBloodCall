@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff"
+    tools:context=".FindDonorsActivity">
+
+    <RelativeLayout
+        android:id="@+id/findDonorRelLayout"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:background="@drawable/ic_small_panel"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:id="@+id/find_donors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="31dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center_horizontal|top"
+            android:text="Find Donors"
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/findDonorRelLayout"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/bloodTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Patient Blood Type"
+            android:textColor="#0B0B0B"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/bloodTypeChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bloodTypeTextView"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_centerHorizontal="true"
+            app:singleLine="false"
+            app:singleSelection="true"
+            app:chipSpacingVertical="13dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAPositive"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginBottom="10dp"
+                android:text="A+"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipMinHeight="50dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipANegative"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="A-"
+
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipMinHeight="50dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipBpositive"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="B+"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipMinHeight="50dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipBNegative"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="B-"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipMinHeight="50dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipABPositive"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="AB+"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipMinHeight="50dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipABNegative"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="AB-"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipMinHeight="50dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOpositive"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:text="O+"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipMinHeight="50dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipONegative"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="O-"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipMinHeight="50dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp" />
+
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/GenderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bloodTypeChipGroup"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Patient Gender"
+            android:textColor="#0B0B0B"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/GenderChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/GenderTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+
+            app:singleLine="false"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMale"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:text="Male"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipEndPadding="20dp"
+                app:chipMinHeight="50dp"
+                app:chipStartPadding="20dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp"
+                app:textEndPadding="30dp"
+                app:textStartPadding="30dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFemale"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:text="Female"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipEndPadding="20dp"
+                app:chipMinHeight="50dp"
+                app:chipStartPadding="20dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp"
+                app:textEndPadding="30dp"
+                app:textStartPadding="30dp" />
+
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/RelationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/GenderChipGroup"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Patient Relation"
+            android:textColor="#0B0B0B"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/RelationChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelationTextView"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_centerHorizontal="true"
+            app:singleLine="false"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSelf"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="Self"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipEndPadding="10dp"
+                app:chipMinHeight="50dp"
+                app:chipStartPadding="10dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp"
+                app:textEndPadding="10dp"
+                app:textStartPadding="10dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFriend"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="Friend"
+
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipEndPadding="10dp"
+                app:chipMinHeight="50dp"
+                app:chipStartPadding="10dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp"
+                app:textEndPadding="10dp"
+                app:textStartPadding="10dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFamily"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="Family"
+
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipEndPadding="10dp"
+                app:chipMinHeight="50dp"
+                app:chipStartPadding="10dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp"
+                app:textEndPadding="10dp"
+                app:textStartPadding="10dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipOther"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="Other"
+                android:textAppearance="@style/chipText"
+                android:textColor="#0B0B0B"
+                app:chipBackgroundColor="@drawable/chip_selection"
+                app:chipCornerRadius="7dp"
+                app:chipEndPadding="10dp"
+                app:chipMinHeight="50dp"
+                app:chipStartPadding="10dp"
+                app:chipStrokeColor="#EA0C0C"
+                app:chipStrokeWidth="2dp"
+                app:textEndPadding="10dp"
+                app:textStartPadding="10dp" />
+
+
+        </com.google.android.material.chip.ChipGroup>
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/rel9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RelationChipGroup"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+
+            >
+
+            <TextView
+                android:id="@+id/AgeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/montserrat"
+                android:text="Patient Age"
+                android:textColor="#0B0B0B"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/ageFindDonor"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+               android:layout_toEndOf="@+id/AgeTextView"
+                android:layout_marginStart="16dp"
+                android:inputType="number"
+                android:maxLength="2"
+                android:textColor="#000000"
+                android:background="@drawable/edittextstyle"
+                android:focusable="true"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"/>
+
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel9"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/sendrequestsbtn"
+            android:id="@+id/sendrequestsbtn"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rel9"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/sendrequestsshadowbtn"
+            android:visibility="visible"
+            android:id="@+id/sendRequestsShadow"/>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

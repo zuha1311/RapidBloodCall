@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MsgActivity"
+    android:background="#ffffff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:background="@drawable/ic_small_panel"
+        android:orientation="horizontal"
+        android:id="@+id/rel_msg_header">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:layout_marginLeft="21dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/find_donors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="31dp"
+            android:text="Messages"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            android:gravity="center_horizontal|top"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/rel_msg_header"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_rectangle">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+
+            android:layout_centerInParent="true"
+            android:textColor="#F10707"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:id="@+id/chatActivityUsername"
+            android:textSize="18dp">
+
+
+        </TextView>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="320dp"
+        android:layout_height="80dp"
+        android:background="@drawable/ic_signout_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_margin="10dp">
+
+
+       <EditText
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:hint="Type a message"
+           android:textColorHint="#99EA0C0C"
+           android:textSize="18sp"
+           android:inputType="textMultiLine"
+           android:maxLines="10"
+            android:layout_margin="10dp"
+           android:textColor="#000000"
+           android:fontFamily="@font/montserrat"
+           android:id="@+id/message"
+           android:layout_centerVertical="true"
+           android:background="@android:color/transparent"
+           android:layout_marginStart="10dp"
+           android:singleLine="false"
+           
+
+          />
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_send_24"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="15dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/sendMsgIcon"
+        android:layout_marginBottom="35dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.bloodbank">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Chatting.ChatListActivity">
+
+        </activity>
+        <activity android:name=".FindDonorsActivity">
+
+        </activity>
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".HistoryActivity" >
+
+
+        </activity>
+
+        <activity android:name=".RequestsActivity" >
+
+        </activity>
+        <activity android:name=".MsgActivity" >
+
+        </activity>
+        <activity android:name=".NavDrawerActivity" />
+        <activity android:name=".HomeActivity" >
+
+
+        </activity>
+        <activity android:name=".SignUpActivity" >
+
+        </activity>
+        <activity android:name=".OTPActivity" />
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+        <activity android:name=".MobileActivity" />
+        <activity
+            android:name=".MainScreen"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

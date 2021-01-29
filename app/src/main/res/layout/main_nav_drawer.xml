@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="176dp"
+       android:background="@drawable/side_nav_bar"
+       android:id="@+id/rel2">
+       <ImageView
+           android:id="@+id/imageView"
+           android:layout_width="82dp"
+           android:layout_height="82dp"
+           android:contentDescription="@string/nav_header_desc"
+           android:layout_centerHorizontal="true"
+           android:layout_alignParentTop="true"
+           android:layout_marginTop="26dp"
+           android:src="@drawable/logo" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Donor #1047"
+           android:fontFamily="@font/montserrat"
+           android:textColor="#343434"
+           android:textStyle="bold"
+           android:layout_below="@+id/imageView"
+           android:layout_centerInParent="true"
+           android:textSize="20sp"
+           android:id="@+id/textView1"
+           />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="24dp"
+           android:text="Donor Status : Approved"
+           android:fontFamily="@font/montserrat"
+           android:textColor="#343434"
+           android:layout_below="@+id/textView1"
+           android:layout_centerInParent="true"
+           android:textSize="16sp"
+           android:id="@+id/textView2" />
+   </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:onClick="ClickHome"
+        android:background="#ffffff"
+        android:layout_below="@id/rel2"
+        android:id="@+id/rel8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Home"
+            android:textColor="#000000"
+            android:fontFamily="@font/montserrat"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_chevron_right_24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"/>
+
+
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:onClick="ClickMsg"
+    android:background="#ffffff"
+    android:layout_below="@id/rel8"
+        android:id="@+id/rel3">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Messages"
+        android:textColor="#000000"
+        android:fontFamily="@font/montserrat"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_chevron_right_24"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"/>
+
+
+
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:onClick="ClickRequests"
+        android:background="#ffffff"
+        android:layout_below="@id/rel3"
+        android:id="@+id/rel4">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Requests"
+            android:textColor="#000000"
+            android:fontFamily="@font/montserrat"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_chevron_right_24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"/>
+
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:onClick="ClickHistory"
+        android:background="#ffffff"
+        android:layout_below="@id/rel4"
+        android:id="@+id/rel5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="History"
+            android:textColor="#000000"
+            android:fontFamily="@font/montserrat"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_chevron_right_24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"/>
+
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:onClick="ClickSettings"
+        android:background="#ffffff"
+        android:layout_below="@id/rel5"
+        android:id="@+id/rel6">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Settings"
+            android:textColor="#000000"
+            android:fontFamily="@font/montserrat"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_chevron_right_24"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="ClickSignOut"
+        android:background="#ffffff"
+        android:layout_below="@id/rel6"
+        android:id="@+id/rel7">
+        
+        <Button
+            android:layout_width="304dp"
+            android:layout_height="76dp"
+            android:background="@drawable/ic_signout_btn"
+            android:layout_centerInParent="true"
+            android:text="Sign Out"
+            android:textColor="#ff0404"
+            android:fontFamily="@font/montserrat"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:id="@+id/signOutBtn"/>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity"
+    android:background="@drawable/signupbg">
+
+    <View
+        android:id="@+id/group_59"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="273dp"
+        android:layout_marginTop="-2dp"
+        android:background="@drawable/signupshapes" />
+
+    <TextView
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
+        android:text="@string/sign_up"
+        android:textAppearance="@style/sign_up"
+        android:gravity="center_horizontal|top"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/fullName"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Full Name"
+        android:textAppearance="@style/sign_up"
+        android:gravity="center_horizontal|top"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:layout_below="@+id/sign_up"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:inputType="text"
+        android:layout_marginStart="30dp"
+        android:hint="Your Name Here"
+        android:textColorHint="#b9b9b9"
+        android:textColor="#ffffff"
+        android:fontFamily="@font/montserrat"
+        android:layout_below="@+id/fullName"
+        android:id="@+id/fullNameEditText"
+        android:layout_marginEnd="30dp" />
+    <TextView
+        android:id="@+id/dob"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:text="Date of Birth"
+        android:textAppearance="@style/sign_up"
+        android:gravity="center_horizontal|top"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:layout_below="@+id/fullNameEditText"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:inputType="text"
+        android:layout_marginStart="30dp"
+        android:hint="DD/MM/YYYY"
+        android:layout_marginTop="10dp"
+        android:textColorHint="#b9b9b9"
+        android:textColor="#ffffff"
+        android:fontFamily="@font/montserrat"
+        android:layout_below="@+id/dob"
+        android:id="@+id/dobEditText"
+        android:layout_marginEnd="30dp"/>
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:text="Age"
+        android:textAppearance="@style/sign_up"
+        android:gravity="center_horizontal|top"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:layout_below="@+id/dobEditText"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:inputType="number"
+        android:layout_marginStart="30dp"
+        android:hint="20"
+        android:layout_marginTop="10dp"
+        android:textColorHint="#b9b9b9"
+        android:textColor="#ffffff"
+        android:fontFamily="@font/montserrat"
+        android:layout_below="@+id/age"
+        android:id="@+id/AGEEditText"
+        android:layout_marginEnd="30dp"/>
+
+    <TextView
+        android:id="@+id/health"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:text="Prevailing Health Conditions"
+        android:textAppearance="@style/sign_up"
+        android:gravity="center_horizontal|top"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:layout_below="@+id/AGEEditText"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:inputType="text"
+        android:layout_marginStart="30dp"
+        android:hint="Diabetes, Blood Pressure,"
+        android:textColorHint="#b9b9b9"
+        android:textColor="#ffffff"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat"
+        android:layout_below="@+id/health"
+        android:id="@+id/healthEditText"
+        android:layout_marginEnd="30dp"/>
+
+    <TextView
+        android:id="@+id/bloodGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:text="Blood Group"
+        android:textAppearance="@style/sign_up"
+        android:gravity="center_horizontal|top"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:layout_below="@+id/healthEditText"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:inputType="text"
+        android:maxLength="3"
+        android:layout_marginStart="30dp"
+        android:hint="A+,O-"
+        android:layout_marginTop="10dp"
+        android:textColorHint="#b9b9b9"
+        android:textColor="#ffffff"
+        android:fontFamily="@font/montserrat"
+        android:layout_below="@+id/bloodGroup"
+        android:id="@+id/bloodGroupEditText"
+        android:layout_marginEnd="30dp"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#ffffff"
+        app:cornerRadius="11dp"
+        android:text="Register for Checkup"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#ff0404"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_for_checkup_btn"
+        android:textStyle="bold"
+        android:layout_marginBottom="22dp"
+        android:textSize="18sp"/>
+
+
+
+
+
+</RelativeLayout>

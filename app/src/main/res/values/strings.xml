@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Blood Bank</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+    <string name="enter_your_">
+
+Enter your mobile number
+</string>
+    <string name="hello">Hello</string>
+    <string name="code">
+
++91
+</string>
+    <string name="get_otp">
+
+GET OTP
+</string>
+    <string name="otp_verific">
+
+OTP Verification
+</string>
+    <string name="enter_the_o">
+
+Enter the OTP sent to +91
+</string>
+    <string name="didn_t_rece">
+
+Did not receive an OTP?
+</string>
+
+    <string name="sign_up">
+
+Sign Up
+</string>
+    <string name="your_blood_">
+
+Your Blood Group
+</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="ApLUS">A+</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
