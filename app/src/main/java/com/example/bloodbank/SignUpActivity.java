@@ -9,15 +9,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SignUpActivity extends AppCompatActivity {
 
     Button registerForCheckeupBtn;
-    EditText name,bloodGroup;
+    EditText name,bloodGroup,dob,healthConditions,age;
     String[]  bloodTypes = {"A+","A-","B+","B-","AB+","AB-","O+","O-","a+","a-","b+","b-","ab+","ab-","o+","o-","Ab+","Ab-","aB+","aB-"};
     String checkblood;
+    FirebaseDatabase database;
+    private DatabaseReference UserReference;
+    String phone;
 
 
     @Override
@@ -28,6 +35,12 @@ public class SignUpActivity extends AppCompatActivity {
         registerForCheckeupBtn = findViewById(R.id.register_for_checkup_btn);
         bloodGroup = findViewById(R.id.bloodGroupEditText);
         name = findViewById(R.id.fullNameEditText);
+        dob = findViewById(R.id.dobEditText);
+        healthConditions = findViewById(R.id.healthEditText);
+        age = findViewById(R.id.AGEEditText);
+        database = FirebaseDatabase.getInstance();
+        UserReference = FirebaseDatabase.getInstance().getReference();
+        phone = getIntent().getStringExtra("mobile");
 
 
 
@@ -38,9 +51,13 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 checkblood = bloodGroup.getText().toString();
                 final int result = checkBloodTypes(bloodTypes,checkblood);
-                if(name.getText().toString().isEmpty() || bloodGroup.getText().toString().isEmpty())
+                if(name.getText().toString().isEmpty() ||
+                        bloodGroup.getText().toString().isEmpty() ||
+                        age.getText().toString().isEmpty()||
+                       dob.getText().toString().isEmpty()||
+                       healthConditions.getText().toString().isEmpty())
                 {
-                    Toast.makeText(SignUpActivity.this, "Please enter name and blood group to proceed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Please enter all the details to proceed", Toast.LENGTH_SHORT).show();
                 }
 
                 else if(result == -1)
@@ -51,6 +68,13 @@ public class SignUpActivity extends AppCompatActivity {
 
                 else
                 {
+                    Users obj = new Users(name.getText().toString(),
+                            age.getText().toString(),dob.getText().toString(),
+                            healthConditions.getText().toString(),
+                            checkblood,"unapproved");
+
+                    UserReference = database.getReference("Users");
+                    UserReference.child(phone).setValue(obj);
                     Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
 
                     intent.putExtra("fullName",name.getText().toString().toUpperCase());

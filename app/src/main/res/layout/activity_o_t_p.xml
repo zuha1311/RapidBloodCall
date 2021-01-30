@@ -129,6 +129,40 @@
             android:textStyle="bold"
 
             />
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:id="@+id/inputCode5"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="#000000"
+            android:backgroundTint="#ff0404"
+            android:textSize="20sp"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+
+            />
+        <EditText
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:id="@+id/inputCode6"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="#000000"
+            android:backgroundTint="#ff0404"
+            android:textSize="20sp"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+
+            />
     </LinearLayout>
 
 

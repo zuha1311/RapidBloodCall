@@ -40,34 +40,37 @@
         />-->
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="60dp"
-            android:layout_marginTop="320dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/ic_slider1"
             android:id="@+id/linear_layout1"
+            android:layout_below="@+id/enter_your_"
+            android:orientation="horizontal"
             >
             <TextView
                 android:id="@+id/code"
                 android:layout_width="30dp"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:text="@string/code"
                 android:textAppearance="@style/code"
                 android:fontFamily="@font/montserrat"
                 android:gravity="center"
+                android:textSize="18sp"
 
                 />
 
             <EditText
                 android:id="@+id/mobileNumber"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="8dp"
-                android:layout_toEndOf="@+id/code"
+
                 android:background="@null"
                 android:fontFamily="@font/montserrat"
                 android:hint="8632134543"
@@ -77,10 +80,10 @@
                 android:textColorHint="#5B595959"
                 android:textCursorDrawable="@drawable/cursor"
                 android:textSize="18sp"
-                android:layout_marginTop="3dp"/>
+               />
 
 
-        </RelativeLayout>
+        </LinearLayout>
     <Button
         android:id="@+id/get_otp_button_enabled"
         android:layout_width="265dp"
