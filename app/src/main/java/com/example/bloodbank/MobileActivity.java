@@ -92,6 +92,19 @@ public class MobileActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if( firebaseUser != null)
+        {
+            Intent homeIntent = new Intent(MobileActivity.this,HomeActivity.class);
+            startActivity(homeIntent);
+            finish();
+        }
+    }
 
 
 }

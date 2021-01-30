@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -77,8 +79,8 @@ public class SignUpActivity extends AppCompatActivity {
                     UserReference.child(phone).setValue(obj);
                     Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
 
-                    intent.putExtra("fullName",name.getText().toString().toUpperCase());
-                    intent.putExtra("bloodGroup",bloodGroup.getText().toString().toUpperCase());
+                    /*intent.putExtra("fullName",name.getText().toString().toUpperCase());
+                    intent.putExtra("bloodGroup",bloodGroup.getText().toString().toUpperCase());*/
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
@@ -112,6 +114,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         return -1;
     }
+
+
 
 
 }

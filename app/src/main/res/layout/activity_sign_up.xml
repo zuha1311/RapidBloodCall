@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
     android:background="@drawable/signupbg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
 
     <View
         android:id="@+id/group_59"
@@ -194,10 +202,14 @@
         android:id="@+id/register_for_checkup_btn"
         android:textStyle="bold"
         android:layout_marginBottom="22dp"
+        android:layout_below="@+id/bloodGroupEditText"
         android:textSize="18sp"/>
 
+    </RelativeLayout>
 
 
 
 
-</RelativeLayout>
+
+
+</ScrollView>
