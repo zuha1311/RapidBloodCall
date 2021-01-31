@@ -1,13 +1,17 @@
 package com.example.bloodbank;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.bloodbank.Chatting.MessageAdpater;
+import com.example.bloodbank.Chatting.Messages;
 import com.example.bloodbank.Chatting.Name;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.bloodbank.Chatting.ChatListAdapter.nameList;
 
@@ -16,6 +20,9 @@ public class MsgActivity extends AppCompatActivity {
     TextView username;
     public static ArrayList<Name> chatRecipient = new ArrayList<>();
     int position = -1;
+    private final List<Messages> msgsList = new ArrayList<>();
+    private LinearLayoutManager linearLayoutManager;
+    private MessageAdpater messageAdpater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,13 @@ public class MsgActivity extends AppCompatActivity {
         username = findViewById(R.id.chatActivityUsername);
         getIntentMethod();
         username.setText(chatRecipient.get(position).getUsername());
+
+        initializeControllers();
+    }
+
+    private void initializeControllers() {
+
+
     }
 
     private void getIntentMethod() {

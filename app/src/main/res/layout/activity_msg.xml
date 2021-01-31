@@ -38,7 +38,10 @@
 
     </RelativeLayout>
 
+
+
     <RelativeLayout
+        android:id="@+id/chatUsernameDisplay"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@id/rel_msg_header"
@@ -64,6 +67,16 @@
         </TextView>
 
     </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/chatUsernameDisplay"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/sendMsgRelLayout"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
 
 
     <RelativeLayout
@@ -72,7 +85,8 @@
         android:background="@drawable/ic_signout_btn"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:id="@+id/sendMsgRelLayout">
 
 
        <EditText
@@ -80,7 +94,7 @@
            android:layout_height="wrap_content"
            android:hint="Type a message"
            android:textColorHint="#99EA0C0C"
-           android:textSize="18sp"
+           android:textSize="16sp"
            android:inputType="textMultiLine"
            android:maxLines="10"
             android:layout_margin="10dp"

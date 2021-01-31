@@ -1,5 +1,6 @@
 package com.example.bloodbank;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,13 +11,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -27,6 +34,9 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseDatabase database;
     private DatabaseReference UserReference;
     String phone;
+    private String defaultStatus = "unapproved";
+    String currentUserId;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -43,6 +53,9 @@ public class SignUpActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         UserReference = FirebaseDatabase.getInstance().getReference();
         phone = getIntent().getStringExtra("mobile");
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+
 
 
 
@@ -70,25 +83,90 @@ public class SignUpActivity extends AppCompatActivity {
 
                 else
                 {
-                    Users obj = new Users(name.getText().toString(),
+                   final String nameforDB = name.getText().toString();
+                    final String ageforDB = age.getText().toString();
+                    final String dobforDB = dob.getText().toString();
+                    final String healthConditionsforDB = healthConditions.getText().toString();
+                    final String bloodGroupforDB = bloodGroup.getText().toString();
+
+
+                    saveProfileInfo(nameforDB,ageforDB,dobforDB,healthConditionsforDB,bloodGroupforDB,defaultStatus,phone);
+                    /*Users obj = new Users(name.getText().toString(),
                             age.getText().toString(),dob.getText().toString(),
                             healthConditions.getText().toString(),
-                            checkblood,"unapproved");
+                            checkblood,"unapproved",phone);*/
 
-                    UserReference = database.getReference("Users");
-                    UserReference.child(phone).setValue(obj);
-                    Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
+                   // UserReference = database.getReference("Users");
+                   // UserReference.child(phone).setValue(obj);
+                    //intent.putExtra("mobile",phone);
 
                     /*intent.putExtra("fullName",name.getText().toString().toUpperCase());
                     intent.putExtra("bloodGroup",bloodGroup.getText().toString().toUpperCase());*/
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
                 }
 
             }
         });
+    }
+
+    private void saveProfileInfo(final String name, final String age, final String dob, final String healthCondition, final String bloodType,final String donorStatus, final String mobile) {
+
+        final DatabaseReference RootRef;
+        RootRef = FirebaseDatabase.getInstance().getReference();
+
+        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!(snapshot.child("Users").child(currentUserId).exists()))
+                {
+                    HashMap<String,Object> userDataMap = new HashMap<>();
+                    userDataMap.put("uid", currentUserId);
+                    userDataMap.put("name",name);
+                    userDataMap.put("age",age);
+                    userDataMap.put("dateofBirth",dob);
+                    userDataMap.put("healthConditions",healthCondition);
+                    userDataMap.put("bloodGroup",bloodType);
+                    userDataMap.put("donorStatus",donorStatus);
+                    userDataMap.put("mobileNumber",mobile);
+
+                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful())
+                                    {
+                                        Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+
+                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra("loc","signUp");
+                                        startActivity(intent);
+                                        finish();
+                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+
+                }
+                else
+                {
+                    Toast.makeText(SignUpActivity.this, "Please try again!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     static int checkBloodTypes(String[] arr, String toCheckValue) {

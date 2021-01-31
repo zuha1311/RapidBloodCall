@@ -38,14 +38,17 @@
         <activity android:name=".SignUpActivity" >
 
 
+
         </activity>
         <activity android:name=".OTPActivity" />
         <activity android:name=".SplashActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
 
 
