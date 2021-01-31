@@ -34,9 +34,10 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseDatabase database;
     private DatabaseReference UserReference;
     String phone;
-    private String defaultStatus = "unapproved";
+    private String defaultStatus = "Unapproved";
     String currentUserId;
     private FirebaseAuth mAuth;
+    long maxID = 1040;
 
 
     @Override
@@ -87,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
                     final String ageforDB = age.getText().toString();
                     final String dobforDB = dob.getText().toString();
                     final String healthConditionsforDB = healthConditions.getText().toString();
-                    final String bloodGroupforDB = bloodGroup.getText().toString();
+                    final String bloodGroupforDB = bloodGroup.getText().toString().toUpperCase();
 
 
                     saveProfileInfo(nameforDB,ageforDB,dobforDB,healthConditionsforDB,bloodGroupforDB,defaultStatus,phone);
@@ -119,6 +120,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(!(snapshot.child("Users").child(currentUserId).exists()))
                 {
+                    maxID = (snapshot.child("Users").getChildrenCount());
+                    long userID = maxID + 1;
                     HashMap<String,Object> userDataMap = new HashMap<>();
                     userDataMap.put("uid", currentUserId);
                     userDataMap.put("name",name);
@@ -128,8 +131,9 @@ public class SignUpActivity extends AppCompatActivity {
                     userDataMap.put("bloodGroup",bloodType);
                     userDataMap.put("donorStatus",donorStatus);
                     userDataMap.put("mobileNumber",mobile);
+                    userDataMap.put("userNumber",String.valueOf(userID));
 
-                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
+                    RootRef.child("Users").child(String.valueOf(userID)).updateChildren(userDataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

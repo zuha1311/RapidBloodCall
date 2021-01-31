@@ -28,16 +28,7 @@
 
         />
 
-    <TextView
-        android:id="@+id/enter_the_o"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginLeft="59dp"
-        android:layout_marginTop="9dp"
-        android:text="@string/enter_the_o"
-        android:textAppearance="@style/enter_the_o"
-        android:fontFamily="@font/montserrat"
-        android:layout_below="@+id/otp_verific" />
+
     <TextView
         android:id="@+id/mobileText"
         android:layout_width="177dp"
@@ -48,7 +39,7 @@
         android:textAppearance="@style/enter_the_o"
         android:fontFamily="@font/montserrat"
         android:layout_below="@+id/otp_verific"
-        android:layout_toEndOf="@+id/enter_the_o"/>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +48,7 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginTop="70dp"
-        android:layout_below="@+id/enter_the_o">
+        android:layout_below="@+id/mobileText">
 
         <EditText
             android:layout_width="40dp"
@@ -177,6 +168,7 @@
             android:textAppearance="@style/didn_t_rece"
             android:gravity="center_horizontal|top"
             android:layout_below="@+id/linear_layout2"
+
             />
 
     <TextView

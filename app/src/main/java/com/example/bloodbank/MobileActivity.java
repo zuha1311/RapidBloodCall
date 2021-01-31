@@ -104,35 +104,41 @@ public class MobileActivity extends AppCompatActivity {
         FirebaseAuth mAuth;
         String currentUser;
         mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser().getUid();
-        DatabaseReference checkRef;
-        checkRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser);
-        checkRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
-                        {
-                            String namefromDB = snapshot.child("name").getValue(String.class);
-                            String bloodgroupfromDB = snapshot.child("bloodGroup").getValue(String.class);
-                            String statusfromDB = snapshot.child("donorStatus").getValue(String.class);
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser != null)
+        {
+            currentUser = mAuth.getCurrentUser().getUid();
+
+            DatabaseReference checkRef;
+            checkRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser);
+            checkRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.exists())
+                    {
+                        String namefromDB = snapshot.child("name").getValue(String.class);
+                        String bloodgroupfromDB = snapshot.child("bloodGroup").getValue(String.class);
+                        String statusfromDB = snapshot.child("donorStatus").getValue(String.class);
 
 
 
-                            Intent homeIntent = new Intent(MobileActivity.this,HomeActivity.class);
-                            homeIntent.putExtra("loc","exists");
-                            homeIntent.putExtra("name",namefromDB);
-                            homeIntent.putExtra("bloodGroup",bloodgroupfromDB);
-                            homeIntent.putExtra("status",statusfromDB);
-                            startActivity(homeIntent);
-                            finish();
-                        }
-            }
+                        Intent homeIntent = new Intent(MobileActivity.this,HomeActivity.class);
+                        homeIntent.putExtra("loc","exists");
+                        homeIntent.putExtra("name",namefromDB);
+                        homeIntent.putExtra("bloodGroup",bloodgroupfromDB);
+                        homeIntent.putExtra("status",statusfromDB);
+                        startActivity(homeIntent);
+                        finish();
+                    }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
+
         /*FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if( firebaseUser != null)

@@ -83,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
         String donorStatus1 = getIntent().getStringExtra("status").toString();
 
 
-        if (donorStatus1.equals("unapproved")) {
+        if (donorStatus1.equals("Unapproved")) {
             donorStatus.setImageResource(R.drawable.waiting);
             donorLine.setText("You cannot donate");
             donateBloodDisabled.setVisibility(View.VISIBLE);
@@ -101,9 +101,6 @@ public class HomeActivity extends AppCompatActivity {
         bloodGroup.setText(bloodGroup1.toUpperCase());
 
 
-
-
-
     }
 
     private void retrieveUserInfoSignUp() {
@@ -117,7 +114,7 @@ public class HomeActivity extends AppCompatActivity {
                     String statusfromDB = snapshot.child("donorStatus").getValue(String.class);
 
                     assert statusfromDB != null;
-                    if (statusfromDB.equals("unapproved")) {
+                    if (statusfromDB.equals("Unapproved")) {
                         donorStatus.setImageResource(R.drawable.waiting);
                         donorLine.setText("You cannot donate");
                         donateBloodDisabled.setVisibility(View.VISIBLE);

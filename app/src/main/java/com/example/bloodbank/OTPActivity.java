@@ -64,7 +64,7 @@ public class OTPActivity extends AppCompatActivity {
 
 
 
-        mobileTextView.setText(getIntent().getStringExtra("mobile"));
+        mobileTextView.setText("Enter the OTP sent to +91 "+ getIntent().getStringExtra("mobile"));
         phoneNumber = "+91"+ getIntent().getStringExtra("mobile");
         
         

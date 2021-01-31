@@ -29,7 +29,7 @@
            android:layout_below="@+id/imageView"
            android:layout_centerInParent="true"
            android:textSize="20sp"
-           android:id="@+id/textView1"
+           android:id="@+id/donorUniqueIdNavDrawer"
            />
 
        <TextView
@@ -38,10 +38,10 @@
            android:text="Donor Status : Approved"
            android:fontFamily="@font/montserrat"
            android:textColor="#343434"
-           android:layout_below="@+id/textView1"
+           android:layout_below="@+id/donorUniqueIdNavDrawer"
            android:layout_centerInParent="true"
            android:textSize="16sp"
-           android:id="@+id/textView2" />
+           android:id="@+id/donorStatusNavDrawer" />
    </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
