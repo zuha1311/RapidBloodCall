@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.bloodbank.Chatting.ChatListAdapter;
 import com.example.bloodbank.Chatting.Name;
@@ -25,6 +27,7 @@ public class RequestsActivity extends AppCompatActivity {
     RequestsListAdapter requestsListAdapter;
     ArrayList<Requests> requestsList = new ArrayList<>();
 
+    private ImageView backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,13 @@ public class RequestsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(requestsListAdapter);
+        backBtn = findViewById(R.id.requestsBackBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestsActivity.super.onBackPressed();
+            }
+        });
 
         for(int i = 0 ; i<names.length;i++)
         {

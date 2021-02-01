@@ -19,7 +19,8 @@
             android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="21dp"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:id="@+id/requestsBackBtn"/>
 
         <TextView
             android:id="@+id/requests"

@@ -82,15 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Please enter valid blood type", Toast.LENGTH_SHORT).show();
 
                 }
-                else if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
-                {
-                    ActivityCompat.requestPermissions(SignUpActivity.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_CODE_LOCATION_PERMISSION
 
-
-                );
-                }
 
                 else {
                     final String nameforDB = name.getText().toString();
@@ -101,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                     saveProfileInfo(nameforDB, ageforDB, dobforDB, healthConditionsforDB, bloodGroupforDB, defaultStatus, phone);
-                    startLocationService();
+                    //startLocationService();
 
 
                 }
@@ -208,7 +200,7 @@ public class SignUpActivity extends AppCompatActivity {
         return -1;
     }
 
-    private boolean isLocationServiceRunning() {
+   /* private boolean isLocationServiceRunning() {
         ActivityManager activityManager = (ActivityManager)
                 getSystemService(Context.ACTIVITY_SERVICE);
         if (activityManager != null) {
@@ -246,7 +238,7 @@ public class SignUpActivity extends AppCompatActivity {
             startService(intent);
             Toast.makeText(this, "Location service stopped", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
 }
 

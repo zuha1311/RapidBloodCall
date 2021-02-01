@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -16,11 +18,21 @@ import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
 
+    private ImageView backbtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        backbtn = findViewById(R.id.historyBackBtn);
         initViewPager();
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HistoryActivity.super.onBackPressed();
+            }
+        });
     }
 
     private void initViewPager() {

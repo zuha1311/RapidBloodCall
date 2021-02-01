@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.bloodbank.MsgActivity;
 import com.example.bloodbank.R;
@@ -22,6 +23,7 @@ public class ChatListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ChatListAdapter chatListAdapter;
     ArrayList<Name> nameList = new ArrayList<>();
+    ImageView backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,13 @@ public class ChatListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(chatListAdapter);
+        backBtn = findViewById(R.id.chatListBackBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ChatListActivity.super.onBackPressed();
+            }
+        });
 
 
         for(int i = 0 ; i<names.length;i++)

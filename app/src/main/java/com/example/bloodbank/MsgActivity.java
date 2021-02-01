@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bloodbank.Chatting.MessageAdpater;
@@ -23,6 +25,7 @@ public class MsgActivity extends AppCompatActivity {
     private final List<Messages> msgsList = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
     private MessageAdpater messageAdpater;
+    private ImageView backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,13 @@ public class MsgActivity extends AppCompatActivity {
         username = findViewById(R.id.chatActivityUsername);
         getIntentMethod();
         username.setText(chatRecipient.get(position).getUsername());
-
+        backBtn = findViewById(R.id.chatScreenBackBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MsgActivity.super.onBackPressed();
+            }
+        });
         initializeControllers();
     }
 

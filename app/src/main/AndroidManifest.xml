@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bloodbank">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -19,7 +18,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".RequesterLocationMapActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -32,22 +31,22 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".Chatting.ChatListActivity"></activity>
-        <activity android:name=".FindDonorsActivity"></activity>
+        <activity android:name=".Chatting.ChatListActivity" />
+        <activity android:name=".FindDonorsActivity" />
         <activity android:name=".SettingActivity" />
-        <activity android:name=".HistoryActivity"></activity>
-        <activity android:name=".RequestsActivity"></activity>
-        <activity android:name=".MsgActivity"></activity>
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".RequestsActivity" />
+        <activity android:name=".MsgActivity" />
         <activity android:name=".NavDrawerActivity" />
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".SignUpActivity" />
         <activity android:name=".OTPActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER"/>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
 
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
         <activity android:name=".MobileActivity" />
         <activity
@@ -57,8 +56,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-
     </application>
 
 </manifest>
