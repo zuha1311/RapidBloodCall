@@ -2,8 +2,14 @@ package com.example.bloodbank;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.example.bloodbank.util.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,8 +35,8 @@ import java.util.HashMap;
 public class SignUpActivity extends AppCompatActivity {
 
     Button registerForCheckeupBtn;
-    EditText name,bloodGroup,dob,healthConditions,age;
-    String[]  bloodTypes = {"A+","A-","B+","B-","AB+","AB-","O+","O-","a+","a-","b+","b-","ab+","ab-","o+","o-","Ab+","Ab-","aB+","aB-"};
+    EditText name, bloodGroup, dob, healthConditions, age;
+    String[] bloodTypes = {"A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "a+", "a-", "b+", "b-", "ab+", "ab-", "o+", "o-", "Ab+", "Ab-", "aB+", "aB-"};
     String checkblood;
     FirebaseDatabase database;
     private DatabaseReference UserReference;
@@ -38,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
     String currentUserId;
     private FirebaseAuth mAuth;
     long maxID = 1040;
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
 
 
     @Override
@@ -58,51 +66,43 @@ public class SignUpActivity extends AppCompatActivity {
         currentUserId = mAuth.getCurrentUser().getUid();
 
 
-
-
-
         registerForCheckeupBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 checkblood = bloodGroup.getText().toString();
-                final int result = checkBloodTypes(bloodTypes,checkblood);
-                if(name.getText().toString().isEmpty() ||
+                final int result = checkBloodTypes(bloodTypes, checkblood);
+                if (name.getText().toString().isEmpty() ||
                         bloodGroup.getText().toString().isEmpty() ||
-                        age.getText().toString().isEmpty()||
-                       dob.getText().toString().isEmpty()||
-                       healthConditions.getText().toString().isEmpty())
-                {
+                        age.getText().toString().isEmpty() ||
+                        dob.getText().toString().isEmpty() ||
+                        healthConditions.getText().toString().isEmpty()) {
                     Toast.makeText(SignUpActivity.this, "Please enter all the details to proceed", Toast.LENGTH_SHORT).show();
-                }
-
-                else if(result == -1)
-                {
+                } else if (result == -1) {
                     Toast.makeText(SignUpActivity.this, "Please enter valid blood type", Toast.LENGTH_SHORT).show();
 
                 }
-
-                else
+                else if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
                 {
-                   final String nameforDB = name.getText().toString();
+                    ActivityCompat.requestPermissions(SignUpActivity.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_CODE_LOCATION_PERMISSION
+
+
+                );
+                }
+
+                else {
+                    final String nameforDB = name.getText().toString();
                     final String ageforDB = age.getText().toString();
                     final String dobforDB = dob.getText().toString();
                     final String healthConditionsforDB = healthConditions.getText().toString();
                     final String bloodGroupforDB = bloodGroup.getText().toString().toUpperCase();
 
 
-                    saveProfileInfo(nameforDB,ageforDB,dobforDB,healthConditionsforDB,bloodGroupforDB,defaultStatus,phone);
-                    /*Users obj = new Users(name.getText().toString(),
-                            age.getText().toString(),dob.getText().toString(),
-                            healthConditions.getText().toString(),
-                            checkblood,"unapproved",phone);*/
+                    saveProfileInfo(nameforDB, ageforDB, dobforDB, healthConditionsforDB, bloodGroupforDB, defaultStatus, phone);
+                    startLocationService();
 
-                   // UserReference = database.getReference("Users");
-                   // UserReference.child(phone).setValue(obj);
-                    //intent.putExtra("mobile",phone);
-
-                    /*intent.putExtra("fullName",name.getText().toString().toUpperCase());
-                    intent.putExtra("bloodGroup",bloodGroup.getText().toString().toUpperCase());*/
 
                 }
 
@@ -110,7 +110,24 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void saveProfileInfo(final String name, final String age, final String dob, final String healthCondition, final String bloodType,final String donorStatus, final String mobile) {
+    /*@Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length >0)
+        {
+            if(grantResults[0]== PackageManager.PERMISSION_GRANTED)
+            {
+                startLocationService();
+            }
+            else
+            {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }*/
+
+    private void saveProfileInfo(final String name, final String age, final String dob, final String healthCondition, final String bloodType, final String donorStatus, final String mobile) {
 
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -118,48 +135,42 @@ public class SignUpActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!(snapshot.child("Users").child(currentUserId).exists()))
-                {
+                if (!(snapshot.child("Users").child(currentUserId).exists())) {
                     maxID = (snapshot.child("Users").getChildrenCount());
-                    long userID = maxID + 1;
-                    HashMap<String,Object> userDataMap = new HashMap<>();
+                    long userID = 1040 + maxID + 1;
+                    HashMap<String, Object> userDataMap = new HashMap<>();
                     userDataMap.put("uid", currentUserId);
-                    userDataMap.put("name",name);
-                    userDataMap.put("age",age);
-                    userDataMap.put("dateofBirth",dob);
-                    userDataMap.put("healthConditions",healthCondition);
-                    userDataMap.put("bloodGroup",bloodType);
-                    userDataMap.put("donorStatus",donorStatus);
-                    userDataMap.put("mobileNumber",mobile);
-                    userDataMap.put("userNumber",String.valueOf(userID));
+                    userDataMap.put("name", name);
+                    userDataMap.put("age", age);
+                    userDataMap.put("dateofBirth", dob);
+                    userDataMap.put("healthConditions", healthCondition);
+                    userDataMap.put("bloodGroup", bloodType);
+                    userDataMap.put("donorStatus", donorStatus);
+                    userDataMap.put("mobileNumber", mobile);
+                    userDataMap.put("userNumber", String.valueOf(userID));
 
-                    RootRef.child("Users").child(String.valueOf(userID)).updateChildren(userDataMap)
+                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful())
-                                    {
+                                    if (task.isSuccessful()) {
                                         Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
 
                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.putExtra("loc","signUp");
+                                        intent.putExtra("loc", "signUp");
                                         startActivity(intent);
                                         finish();
                                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
 
 
-                }
-                else
-                {
+                } else {
                     Toast.makeText(SignUpActivity.this, "Please try again!", Toast.LENGTH_SHORT).show();
                 }
 
@@ -197,7 +208,45 @@ public class SignUpActivity extends AppCompatActivity {
         return -1;
     }
 
+    private boolean isLocationServiceRunning() {
+        ActivityManager activityManager = (ActivityManager)
+                getSystemService(Context.ACTIVITY_SERVICE);
+        if (activityManager != null) {
+            for (ActivityManager.RunningServiceInfo service :
+                    activityManager.getRunningServices(Integer.MAX_VALUE)) {
+                if (LocationService.class.getName().equals(service.service.getClassName())) {
+                    if (service.foreground) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        return false;
 
+    }
+    private void startLocationService()
+    {
+        if(!isLocationServiceRunning())
+        {
+            Intent intent = new Intent(getApplicationContext(),LocationService.class);
+            intent.setAction(Constants.ACTION_START_LOCATION_SERVICE);
+            startService(intent);
+            Toast.makeText(this, "Location service started", Toast.LENGTH_SHORT).show();
+        }
 
+    }
+
+    private void stopLocationService()
+    {
+        if(isLocationServiceRunning())
+        {
+            Intent intent = new Intent(getApplicationContext(),LocationService.class);
+            intent.setAction(Constants.ACTION_STOP_LOCATION_SERVICE);
+            startService(intent);
+            Toast.makeText(this, "Location service stopped", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 }
+

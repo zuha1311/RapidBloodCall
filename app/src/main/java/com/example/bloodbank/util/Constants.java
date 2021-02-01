@@ -22,4 +22,9 @@ public class Constants {
     //Network error codes
     public static final int STATUS_OK = 200;
     public static final int UNAUTHORISED = 500;
+
+    //location codes
+    public static final int LOCATION_SERVICE_ID = 175;
+    public static final String ACTION_START_LOCATION_SERVICE = "startLocationService";
+    public static final String ACTION_STOP_LOCATION_SERVICE = "stopLocationService";
 }

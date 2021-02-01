@@ -51,6 +51,8 @@ Your Blood Group
     <string name="ApLUS">A+</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_the_otp_sent_to_91">Enter the OTP sent to +91</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

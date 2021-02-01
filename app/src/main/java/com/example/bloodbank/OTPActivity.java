@@ -64,10 +64,10 @@ public class OTPActivity extends AppCompatActivity {
 
 
 
-        mobileTextView.setText("Enter the OTP sent to +91 "+ getIntent().getStringExtra("mobile"));
+        mobileTextView.setText("Enter the OTP sent to +91 " + getIntent().getStringExtra("mobile"));
         phoneNumber = "+91"+ getIntent().getStringExtra("mobile");
-        
-        
+
+
         setOTPInputs();
         initiateOTP();
         verifyEnabled.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +81,7 @@ public class OTPActivity extends AppCompatActivity {
 
             }
         });
-        
+
         resendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

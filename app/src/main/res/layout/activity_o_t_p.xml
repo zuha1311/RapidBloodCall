@@ -31,7 +31,7 @@
 
     <TextView
         android:id="@+id/mobileText"
-        android:layout_width="177dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="9dp"
@@ -39,6 +39,7 @@
         android:textAppearance="@style/enter_the_o"
         android:fontFamily="@font/montserrat"
         android:layout_below="@+id/otp_verific"
+        android:text="@string/enter_the_otp_sent_to_91"
         />
 
     <LinearLayout
