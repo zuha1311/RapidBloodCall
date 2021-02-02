@@ -32,6 +32,7 @@ public class FindDonorsActivity extends AppCompatActivity {
     private String currentUserId;
     private String requestStatus = "Pending";
     private long requestID = 0;
+    String bloodGroupSelection = null, relationSelection = null, genderSelection = null;
 
 
     @Override
@@ -108,23 +109,6 @@ public class FindDonorsActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
-       /* if(FLAG && relationChipCount == 0 && genderChipCount ==0 )
-        {
-            Toast.makeText(this, "Please select all the details", Toast.LENGTH_SHORT).show();
-        }
-        else if(bloodTypeChipCount == 1 && relationChipCount == 1 && genderChipCount ==1)
-        {
-                    sendRequestsShadow.setVisibility(View.INVISIBLE);
-        }*/
-
-
     }
 
     private void getChipSelection() {
@@ -132,7 +116,7 @@ public class FindDonorsActivity extends AppCompatActivity {
         int relationChipCount = relationChipGroup.getChildCount();
         int genderChipCount = genderChipGroup.getChildCount();
         String ageSelection = ageEditText.getText().toString();
-        String bloodGroupSelection = null, relationSelection = null, genderSelection = null;
+
 
         for (int i = 0; i < bloodTypeChipCount; i++) {
             Chip child = (Chip) bloodTypeChipGroup.getChildAt(i);
@@ -140,6 +124,7 @@ public class FindDonorsActivity extends AppCompatActivity {
                 continue;
             } else {
                 bloodGroupSelection = child.getText().toString();
+
             }
         }
         for (int i = 0; i < relationChipCount; i++) {
@@ -163,60 +148,70 @@ public class FindDonorsActivity extends AppCompatActivity {
 
     }
 
+
+
     private void sendDatatoDatabase(String bloodGroupSelection, String genderSelection, String relationSelection, String ageSelection) {
 
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
-        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!(snapshot.child("Requests").child(currentUserId)).exists()) {
-                    requestID = (snapshot.child("Requests").getChildrenCount());
-                    long requestNo = requestID + 1;
-                    HashMap<String, Object> requestsDataMap = new HashMap<>();
-                    requestsDataMap.put("uid", currentUserId);
-                    requestsDataMap.put("bloodGroup", bloodGroupSelection);
-                    requestsDataMap.put("gender", genderSelection);
-                    requestsDataMap.put("relation", relationSelection);
-                    requestsDataMap.put("age", ageSelection);
-                    requestsDataMap.put("status", requestStatus);
-                    requestsDataMap.put("latitude", "");
-                    requestsDataMap.put("longitude", "");
-                    requestsDataMap.put("RequestId", String.valueOf(requestNo));
+        try {
+
+            RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (!(snapshot.child("Requests").child(currentUserId)).exists()) {
+                        requestID = (snapshot.child("Requests").getChildrenCount());
+                        long requestNo = requestID + 1;
+                        HashMap<String, Object> requestsDataMap = new HashMap<>();
+                        requestsDataMap.put("uid", currentUserId);
+                        requestsDataMap.put("bloodGroup", bloodGroupSelection);
+                        requestsDataMap.put("gender", genderSelection);
+                        requestsDataMap.put("relation", relationSelection);
+                        requestsDataMap.put("age", ageSelection);
+                        requestsDataMap.put("status", requestStatus);
+                        requestsDataMap.put("latitude", "");
+                        requestsDataMap.put("longitude", "");
+                        requestsDataMap.put("RequestId", String.valueOf(requestNo));
 
 
-                    RootRef.child("Requests").child(String.valueOf(requestNo)).updateChildren(requestsDataMap)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(FindDonorsActivity.this, "Request sent to database", Toast.LENGTH_SHORT).show();
+                        RootRef.child("Requests").child(String.valueOf(requestNo)).updateChildren(requestsDataMap)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(FindDonorsActivity.this, "Request sent to database", Toast.LENGTH_SHORT).show();
 
-                                        Intent intent = new Intent(FindDonorsActivity.this, RequesterLocationMapActivity.class);
+                                            Intent intent = new Intent(FindDonorsActivity.this, RequesterLocationMapActivity.class);
+                                            startActivity(intent);
 
-                                        startActivity(intent);
+                                            finish();
+                                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-                                        finish();
-                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
-                                    } else {
-                                        Toast.makeText(FindDonorsActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(FindDonorsActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
 
 
-                } else if(snapshot.child("Requests").child(currentUserId).exists()) {
-                    Toast.makeText(FindDonorsActivity.this, "You have already made a request", Toast.LENGTH_SHORT).show();
+                    } else if (snapshot.child("Requests").child(currentUserId).exists()) {
+                        Toast.makeText(FindDonorsActivity.this, "You have already made a request", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+
+        }catch (Exception e)
+        {
+            Toast.makeText(FindDonorsActivity.this, "Error", Toast.LENGTH_SHORT).show();
+
+        }
 
 
     }

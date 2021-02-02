@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,6 +44,7 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
     FusedLocationProviderClient client;
     FirebaseAuth mAuth;
     String currentUserId;
+    Button locationConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,15 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
         client = LocationServices.getFusedLocationProviderClient(this);
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
+        locationConfirm = findViewById(R.id.confirmLocation);
+
+        locationConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RequesterLocationMapActivity.this,SendRequestsFromRequesterActivity.class);
+                startActivity(intent);
+            }
+        });
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(new PermissionListener() {
@@ -102,7 +115,8 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
                         double longitude = location.getLongitude();
                         sendToDatabase(lat, longitude);
 
-                        Toast.makeText(RequesterLocationMapActivity.this, "Latitude:" + location.getLatitude() + "Longitude: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RequesterLocationMapActivity.this,
+                                "Latitude:" + location.getLatitude() + "Longitude: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
 
                         MarkerOptions markerOptions = new MarkerOptions().position(latLng)
                                 .title("You");
@@ -123,27 +137,37 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    if (!snapshot.child("Requests").child(currentUserId).exists()) {
+                        long requestID = (snapshot.child("Requests").getChildrenCount());
 
-                if (!snapshot.child("Requests").child(currentUserId).exists()) {
-                    long requestID = (snapshot.child("Requests").getChildrenCount());
+                        HashMap<String, Object> locDataMap = new HashMap<>();
+                        locDataMap.put("latitude", String.valueOf(la));
+                        locDataMap.put("longitude", String.valueOf(lo));
 
-                    HashMap<String, Object> locDataMap = new HashMap<>();
-                    locDataMap.put("latitude", String.valueOf(la));
-                    locDataMap.put("longitude", String.valueOf(lo));
-
-                    RootRef.child("Requests").child(String.valueOf(requestID)).updateChildren(locDataMap)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(RequesterLocationMapActivity.this, "Location added to database", Toast.LENGTH_SHORT).show();
+                        RootRef.child("Requests").child(String.valueOf(requestID)).updateChildren(locDataMap)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(RequesterLocationMapActivity.this, "Location added to database", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(RequesterLocationMapActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
 
-                } else {
-                    Toast.makeText(RequesterLocationMapActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(RequesterLocationMapActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e)
+                {
+                    Toast.makeText(RequesterLocationMapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
+
             }
 
             @Override

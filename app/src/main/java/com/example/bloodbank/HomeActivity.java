@@ -119,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
                         donorLine.setText("You cannot donate");
                         donateBloodDisabled.setVisibility(View.VISIBLE);
                         donateBloodEnabled.setVisibility(View.INVISIBLE);
-                    } else {
+                    } else if(statusfromDB.equals("Approved")) {
                         donorStatus.setImageResource(R.drawable.approved);
                         donorLine.setText("You can donate");
                         donateBloodDisabled.setVisibility(View.INVISIBLE);

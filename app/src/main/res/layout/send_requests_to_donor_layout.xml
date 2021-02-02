@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="105dp"  android:background="#ffffff"
+    android:layout_marginTop="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Donor #"
+        android:textColor="#502727"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:id="@+id/requesterTextView"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Group :"
+        android:textColor="#502727"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:id="@+id/bloodGroupTextView"
+        android:layout_below="@+id/requesterTextView"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Details >"
+        android:textColor="#F44545"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="17dp"
+        android:textSize="15sp"
+        android:id="@+id/viewDetailsofRequest"
+        android:layout_below="@+id/bloodGroupTextView"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1234"
+        android:textColor="#502727"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:id="@+id/donorID"
+        android:layout_toEndOf="@+id/requesterTextView"/>
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_accept_request_btn"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:text="SEND"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/acceptRequestBtn"/>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_msg_line"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+
+
+
+</RelativeLayout>
