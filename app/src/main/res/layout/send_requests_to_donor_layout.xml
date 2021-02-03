@@ -57,7 +57,7 @@
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:fontFamily="@font/montserrat"
-        android:id="@+id/acceptRequestBtn"/>
+        android:id="@+id/sendRequestBtn"/>
 
 
     <ImageView

@@ -2,16 +2,17 @@ package com.example.bloodbank;
 
 public class FindDonors {
 
-    public String userNumber, bloodGroup, donorStatus;
+    public String userNumber, bloodGroup, donorStatus,uid;
 
     public FindDonors()
     {}
 
 
-    public FindDonors(String userNumber, String bloodGroup, String donorStatus) {
+    public FindDonors(String userNumber, String bloodGroup, String donorStatus,String uid) {
         this.userNumber = userNumber;
         this.bloodGroup = bloodGroup;
         this.donorStatus = donorStatus;
+        this.uid = uid;
     }
 
     public String getUserNumber() {
@@ -36,5 +37,13 @@ public class FindDonors {
 
     public void setDonorStatus(String donorStatus) {
         this.donorStatus = donorStatus;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

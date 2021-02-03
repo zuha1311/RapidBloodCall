@@ -18,7 +18,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SendRequestsFromRequesterActivity"></activity>
+        <activity android:name=".DonorLocationActivity"></activity>
+        <activity android:name=".SendRequestsFromRequesterActivity" />
         <activity android:name=".RequesterLocationMapActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

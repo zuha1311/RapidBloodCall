@@ -15,16 +15,6 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:id="@+id/requesterTextView"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Details >"
-        android:textColor="#F44545"
-        android:fontFamily="@font/montserrat"
-        android:layout_marginTop="17dp"
-        android:textSize="15sp"
-        android:id="@+id/viewDetailsofRequest"
-        android:layout_below="@+id/requesterTextView"/>
 
 
     <TextView
@@ -37,6 +27,29 @@
         android:textSize="20sp"
         android:id="@+id/requesterID"
         android:layout_toEndOf="@+id/requesterTextView"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Blood Group :"
+        android:textColor="#502727"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:id="@+id/bloodGroupTextViewRequest"
+        android:layout_below="@+id/requesterTextView"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Details >"
+        android:textColor="#F44545"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="17dp"
+        android:textSize="15sp"
+        android:id="@+id/viewDetailsofRequest"
+        android:layout_below="@+id/bloodGroupTextViewRequest"
+       />
+
 
     <Button
         android:layout_width="120dp"
@@ -66,11 +79,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_msg_line"
         android:layout_alignParentBottom="true"
+
        />
-
-
-
-
-
 
 </RelativeLayout>

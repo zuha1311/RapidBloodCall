@@ -43,7 +43,7 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient client;
     FirebaseAuth mAuth;
-    String currentUserId;
+    String currentUserId,senderID;
     Button locationConfirm;
 
     @Override
@@ -108,11 +108,11 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
                 supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(GoogleMap googleMap) {
-                        LatLng latLng = new LatLng(location.getLatitude()
-                                , location.getLongitude());
+
 
                         double lat = location.getLatitude();
                         double longitude = location.getLongitude();
+                        LatLng latLng = new LatLng(lat,longitude);
                         sendToDatabase(lat, longitude);
 
                         Toast.makeText(RequesterLocationMapActivity.this,
