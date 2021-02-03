@@ -102,50 +102,11 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
     private void findDonors(String bloodGroup) {
 
         FirebaseRecyclerOptions<FindDonors> option = null;
-        Query query = findDonorsRef.orderByChild("bloodGroup");
+        Query query = findDonorsRef.orderByChild("compatibleWith/".concat(bloodGroup)).equalTo(true);
 
-        switch (bloodGroup) {
-            case "O-":
-                option = new FirebaseRecyclerOptions.Builder<FindDonors>()
-                        .setQuery(query.equalTo("O-"), FindDonors.class)
-                        .build();
-                break;
-            case "O+":
-                option = new FirebaseRecyclerOptions.Builder<FindDonors>()
-                        .setQuery(query.equalTo("O-").equalTo("A-"), FindDonors.class)
-                        .build();
-                break;
-            case "A-":
-                option = new FirebaseRecyclerOptions.Builder<FindDonors>()
-                        .setQuery(query.equalTo("O-").equalTo("O+"), FindDonors.class)
-                        .build();
-                break;
-            case "A+":
-                option = new FirebaseRecyclerOptions.Builder<FindDonors>()
-                        .setQuery(query.equalTo("O-").equalTo("O+").equalTo("A+").equalTo("A-"), FindDonors.class)
-                        .build();
-                break;
-            case "B-":
-                option = new FirebaseRecyclerOptions.Builder<FindDonors>()
-                        .setQuery(query.equalTo("O-").equalTo("B-"), FindDonors.class)
-                        .build();
-                break;
-            case "B+":
-                option = new FirebaseRecyclerOptions.Builder<FindDonors>()
-                        .setQuery(query.equalTo("O-").equalTo("O+").equalTo("B-").equalTo("B+"), FindDonors.class)
-                        .build();
-                break;
-            case "AB-":
-                option = new FirebaseRecyclerOptions.Builder<FindDonors>()
-                        .setQuery(query.equalTo("O-").equalTo("A-").equalTo("B-").equalTo("AB-"), FindDonors.class)
-                        .build();
-                break;
-            case "AB+":
-                option = new FirebaseRecyclerOptions.Builder<FindDonors>()
-                        .setQuery(query.endAt("\uf8ff"), FindDonors.class)
-                        .build();
-                break;
-        }
+       option = new FirebaseRecyclerOptions.Builder<FindDonors>()
+               .setQuery(query, FindDonors.class)
+               .build();
         FirebaseRecyclerAdapter<FindDonors, FindDonorViewHolder> firebaseRecyclerAdapter
                 = new FirebaseRecyclerAdapter<FindDonors, FindDonorViewHolder>(option) {
             @Override

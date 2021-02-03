@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffffff"
     tools:context=".FindDonorsActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+
 
     <RelativeLayout
         android:id="@+id/findDonorRelLayout"
@@ -45,6 +51,18 @@
         android:layout_marginTop="20dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please ensure you have turned on location services."
+            android:textColor="#000000"
+            android:id="@+id/textdonors"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_centerHorizontal="true"/>
+
+
+        <TextView
             android:id="@+id/bloodTypeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +71,9 @@
             android:text="Patient Blood Type"
             android:textColor="#0B0B0B"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_below="@+id/textdonors"
+            android:layout_marginTop="10dp"/>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/bloodTypeChipGroup"
@@ -403,23 +423,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/rel9"
             android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
             android:src="@drawable/sendrequestsbtn"
             android:id="@+id/sendrequestsbtn"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/rel9"
             android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
             android:src="@drawable/sendrequestsshadowbtn"
             android:visibility="visible"
             android:id="@+id/sendRequestsShadow"/>
 
 
     </RelativeLayout>
+    </RelativeLayout>
 
-
-</RelativeLayout>
+</ScrollView>
