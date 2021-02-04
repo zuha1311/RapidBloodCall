@@ -24,6 +24,8 @@ import com.example.bloodbank.Chatting.ChatListAdapter;
 import com.example.bloodbank.Chatting.Name;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -38,10 +40,11 @@ public class RequestsActivity extends AppCompatActivity {
 
 
     RecyclerView recyclerView;
-    private DatabaseReference receiveRequestsRef, usersRef;
+    private DatabaseReference receiveRequestsRef, usersRef,msgsRef;
     private String currentUserId, current_state, senderID;
     private FirebaseAuth mAuth;
     private ImageView backBtn;
+    private String requesterUserNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +55,13 @@ public class RequestsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        current_state = "new";
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         receiveRequestsRef = FirebaseDatabase.getInstance().getReference().child("Send_Requests");
+        msgsRef = FirebaseDatabase.getInstance().getReference().child("Messages from Not Accepted");
 
         backBtn = findViewById(R.id.requestsBackBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,10 +105,17 @@ public class RequestsActivity extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        String requesterUserNumber = snapshot.child("userNumber").getValue().toString();
+                                        requesterUserNumber = snapshot.child("userNumber").getValue().toString();
                                         String requesterbloodGroup = snapshot.child("bloodGroup").getValue().toString();
+                                        final String requesterUID =  model.getUid();
                                         holder.userID.setText(requesterUserNumber);
                                         holder.bloodgroup.setText("Blood Group: " + requesterbloodGroup);
+                                        holder.decline.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                CancelDonationRequest(requesterUID);
+                                            }
+                                        });
 
 
                                     }
@@ -136,6 +148,15 @@ public class RequestsActivity extends AppCompatActivity {
                     }
                 });
 
+
+
+                /*holder.message.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        messageRequester(requesterUID);
+                    }
+                });*/
+
             }
 
             @NonNull
@@ -151,10 +172,119 @@ public class RequestsActivity extends AppCompatActivity {
 
     }
 
+    private void messageRequester(String receiverUID) {
+
+        receiveRequestsRef.child(senderID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String type = snapshot.child(receiverUID).child("request_type").getValue().toString();
+
+                if(type.equals("Received"))
+                {
+                    current_state = "request_received";
+                    newMessageNotAccepted(senderID,receiverUID);
+
+                }
+
+                else
+                {
+                    msgsRef.child(senderID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.hasChild(receiverUID))
+                            {
+                                current_state = "Acceptance Pending";
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void newMessageNotAccepted(String senderID, String receiverUID) {
+
+        msgsRef.child(senderID).child(receiverUID).child("Status").setValue("Acceptance Pending")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                        {
+                            msgsRef.child(receiverUID).child(senderID).child("Status").setValue("Acceptance Pending")
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful())
+                                                {
+                                                    receiveRequestsRef.child(senderID).child(receiverUID)
+                                                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if(task.isSuccessful())
+                                                            {
+                                                                receiveRequestsRef.child(receiverUID).child(senderID)
+                                                                        .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                        current_state = "Acceptance Pending";
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                        }
+                                    });
+                        }
+
+                    }
+                });
+    }
+
+    private void CancelDonationRequest(String receiverUID) {
+
+        receiveRequestsRef.child(senderID).child(receiverUID).removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful()) {
+                            receiveRequestsRef.child(senderID).child(receiverUID)
+                                    .removeValue().addOnCompleteListener(
+                                    new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(RequestsActivity.this, "Request removed", Toast.LENGTH_SHORT).show();
+                                                current_state = "new";
+
+                                            }
+                                        }
+                                    }
+                            );
+                        }
+
+                    }
+                });
+
+
+    }
+
     public static class ReceiveRequestsViewHolder extends RecyclerView.ViewHolder {
 
         TextView userID, bloodgroup;
-        Button accept, decline;
+        Button accept, decline,message;
 
         public ReceiveRequestsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -163,6 +293,8 @@ public class RequestsActivity extends AppCompatActivity {
             bloodgroup = itemView.findViewById(R.id.bloodGroupTextViewRequest);
             accept = itemView.findViewById(R.id.acceptRequestBtn);
             decline = itemView.findViewById(R.id.declineRequestBtn);
+            message = itemView.findViewById(R.id.messageRequesterBtn);
+
 
         }
 

@@ -29,6 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.concurrent.TimeUnit;
 
@@ -108,6 +110,7 @@ public class MobileActivity extends AppCompatActivity {
         if(firebaseUser != null)
         {
             currentUser = mAuth.getCurrentUser().getUid();
+
 
             DatabaseReference checkRef;
             checkRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUser);

@@ -149,7 +149,6 @@ public class FindDonorsActivity extends AppCompatActivity {
     }
 
 
-
     private void sendDatatoDatabase(String bloodGroupSelection, String genderSelection, String relationSelection, String ageSelection) {
 
         final DatabaseReference RootRef;
@@ -207,20 +206,12 @@ public class FindDonorsActivity extends AppCompatActivity {
                 }
             });
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(FindDonorsActivity.this, "Error", Toast.LENGTH_SHORT).show();
 
         }
 
 
     }
-
-   /* private String getSelectedText(ChipGroup group, int checkedId) {
-
-        Chip chip = group.findViewById(checkedId);
-        return chip.toString();
-    }*/
-
 
 }

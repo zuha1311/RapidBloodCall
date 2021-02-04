@@ -28,10 +28,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class SendRequestsFromRequesterActivity extends AppCompatActivity {
 
     String bloodGroup1;
-    private DatabaseReference findDonorsRef, sendRequestsRef;
+    private DatabaseReference findDonorsRef, sendRequestsRef, acceptReqNotifyRef;
     private String currentUserId, current_state, senderID;
     private FirebaseAuth mAuth;
     private RecyclerView showDonorsRecyclerView;
@@ -47,7 +49,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
 
         backBtn = findViewById(R.id.requesterrequestsBackBtn);
         sendRequestsRef = FirebaseDatabase.getInstance().getReference().child("Send_Requests");
-
+        acceptReqNotifyRef = FirebaseDatabase.getInstance().getReference().child("Notifications");
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +135,12 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
                         manageRequests(receiverID, senderID);
                         if (current_state.equals("new")) {
                             holder.send.setText("CANCEL");
-                        } else {
+                        } else if(senderID.equals(receiverID))
+                        {
+                            holder.send.setVisibility(View.INVISIBLE);
+                        }
+
+                        else {
                             holder.send.setText("SEND");
 
                         }
@@ -156,6 +163,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
     }
 
     private void manageRequests(String receiverID, String senderID) {
+
 
         sendRequestsRef.child(senderID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -233,9 +241,27 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                current_state = "request_sent";
 
-                                                Toast.makeText(SendRequestsFromRequesterActivity.this, "Request sent to database", Toast.LENGTH_SHORT).show();
+                                                HashMap<String,Object> msgsNotificationMap = new HashMap<>();
+                                                msgsNotificationMap.put("from",senderID);
+                                                msgsNotificationMap.put("type","msgsRequest");
+
+                                                acceptReqNotifyRef.child(reciverID).push()
+                                                        .setValue(msgsNotificationMap)
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if(task.isSuccessful())
+                                                                {
+                                                                    current_state = "request_sent";
+
+                                                                    Toast.makeText(SendRequestsFromRequesterActivity.this, "Request sent to database", Toast.LENGTH_SHORT).show();
+
+                                                                }
+                                                            }
+                                                        });
+
+
                                             }
 
                                         }
