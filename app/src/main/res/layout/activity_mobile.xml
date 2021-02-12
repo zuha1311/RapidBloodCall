@@ -2,117 +2,105 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rel1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MobileActivity"
     android:background="#ffffff"
-    android:id="@+id/rel1">
+    tools:context=".MobileActivity">
 
     <ImageView
         android:id="@+id/shapes"
         android:layout_width="350dp"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="-20dp"
         android:layout_marginTop="-22dp"
-        android:src="@drawable/shapes"
-        android:layout_marginLeft="-20dp"/>
+        android:src="@drawable/shapes" />
 
     <TextView
         android:id="@+id/enter_your_"
         android:layout_width="wrap_content"
         android:layout_height="26dp"
+        android:layout_below="@+id/shapes"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/montserrat"
         android:gravity="center_horizontal|top"
         android:text="@string/enter_your_"
-        android:textAppearance="@style/enter_your_"
-        android:layout_below="@+id/shapes"
-        android:fontFamily="@font/montserrat"
-       />
+        android:textAppearance="@style/enter_your_" />
 
-   <!-- <View
-        android:id="@+id/rectangle_9"
-        android:layout_width="265dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/ic_slider1"
+
+    <LinearLayout
+        android:id="@+id/linear_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/enter_your_"
-        />-->
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/ic_slider1"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/code"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal|center_vertical"
-            android:layout_marginStart="60dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_slider1"
-            android:id="@+id/linear_layout1"
-            android:layout_below="@+id/enter_your_"
-            android:orientation="horizontal"
-            >
-            <TextView
-                android:id="@+id/code"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:text="@string/code"
-                android:textAppearance="@style/code"
-                android:fontFamily="@font/montserrat"
-                android:gravity="center"
-                android:textSize="18sp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:text="@string/code"
+            android:textAppearance="@style/code"
+            android:textSize="18sp"
 
-                />
+            />
 
-            <EditText
-                android:id="@+id/mobileNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
-                android:layout_marginEnd="8dp"
+        <EditText
+            android:id="@+id/mobileNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="8dp"
 
-                android:background="@null"
-                android:fontFamily="@font/montserrat"
-                android:hint="8632134543"
-                android:inputType="number"
-                android:maxLength="10"
-                android:textColor="#ff0404"
-                android:textColorHint="#5B595959"
-                android:textCursorDrawable="@drawable/cursor"
-                android:textSize="18sp"
-               />
+            android:background="@null"
+            android:fontFamily="@font/montserrat"
+            android:hint="8632134543"
+            android:inputType="number"
+            android:maxLength="10"
+            android:textColor="#ff0404"
+            android:textColorHint="#5B595959"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="18sp" />
 
 
-        </LinearLayout>
+    </LinearLayout>
+
     <Button
         android:id="@+id/get_otp_button_enabled"
         android:layout_width="265dp"
         android:layout_height="53dp"
         android:layout_below="@id/linear_layout1"
-        android:layout_marginTop="75dp"
         android:layout_centerHorizontal="true"
-        android:visibility="invisible"
+        android:layout_marginTop="75dp"
         android:background="@drawable/ic_button_enabled"
-        android:textStyle="bold"
-        android:text="@string/get_otp"
-        android:textColor="#ffffff"
-        android:textAppearance="@style/get_otp"
         android:fontFamily="@font/montserrat"
-        />
+        android:text="@string/get_otp"
+        android:textAppearance="@style/get_otp"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/get_otp_button_disabled"
         android:layout_width="265dp"
         android:layout_height="53dp"
         android:layout_below="@id/linear_layout1"
-        android:layout_marginTop="75dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
         android:background="@drawable/ic_button_disabled"
-        android:visibility="visible"
-        android:textStyle="bold"
+        android:fontFamily="@font/montserrat"
         android:text="@string/get_otp"
         android:textColor="#ffffff"
-        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:visibility="visible"
 
         />
 
@@ -126,7 +114,7 @@
         android:layout_marginLeft="298dp"
         android:layout_marginTop="459dp"
         android:background="@drawable/ic_ellipse2"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <View
         android:id="@+id/ellipse_6_disabled"
@@ -137,14 +125,7 @@
         android:layout_marginLeft="297dp"
         android:layout_marginTop="446dp"
         android:background="@drawable/ic_ellipse1"
-        android:visibility="visible"/>
-
-
-
-
-
-
-
+        android:visibility="visible" />
 
 
 </RelativeLayout>

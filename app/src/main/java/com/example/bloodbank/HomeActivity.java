@@ -22,12 +22,13 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeActivity extends AppCompatActivity {
 
     private TextView fullNameTextView, bloodGroup, donorLine;
-    private ImageView donateBloodEnabled,donateBloodDisabled, findDonors, navMenu, donorStatus;
-    private DatabaseReference usersSignUpRef,usersDirectRef;
+    private ImageView donateBloodEnabled, donateBloodDisabled, findDonors, navMenu, donorStatus;
+    private DatabaseReference usersSignUpRef, usersDirectRef;
     private FirebaseAuth mAuth;
     private String currentUserid;
     String uid;
     String loc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +45,10 @@ public class HomeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserid = mAuth.getCurrentUser().getUid();
 
-        if(loc.equals("signUp"))
-        {
+        if (loc.equals("signUp")) {
             retrieveUserInfoSignUp();
 
-        }
-        else if(loc.equals("exists"))
-        {
+        } else if (loc.equals("exists")) {
             retireveUserInfoDirect();
         }
 
@@ -89,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
             donateBloodDisabled.setVisibility(View.VISIBLE);
             donateBloodEnabled.setVisibility(View.INVISIBLE);
         } else {
-           donorStatus.setImageResource(R.drawable.approved);
+            donorStatus.setImageResource(R.drawable.approved);
             donorLine.setText("You can donate");
             donateBloodDisabled.setVisibility(View.INVISIBLE);
             donateBloodEnabled.setVisibility(View.VISIBLE);
@@ -119,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
                         donorLine.setText("You cannot donate");
                         donateBloodDisabled.setVisibility(View.VISIBLE);
                         donateBloodEnabled.setVisibility(View.INVISIBLE);
-                    } else if(statusfromDB.equals("Approved")) {
+                    } else if (statusfromDB.equals("Approved")) {
                         donorStatus.setImageResource(R.drawable.approved);
                         donorLine.setText("You can donate");
                         donateBloodDisabled.setVisibility(View.INVISIBLE);

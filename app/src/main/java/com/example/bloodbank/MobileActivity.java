@@ -73,7 +73,7 @@ public class MobileActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
 
-                             Intent intent = new Intent(MobileActivity.this, OTPActivity.class);
+                            Intent intent = new Intent(MobileActivity.this, OTPActivity.class);
                             intent.putExtra("mobile", mobileNo.getText().toString());
 
                             startActivity(intent);
@@ -99,6 +99,7 @@ public class MobileActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -107,8 +108,7 @@ public class MobileActivity extends AppCompatActivity {
         String currentUser;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(firebaseUser != null)
-        {
+        if (firebaseUser != null) {
             currentUser = mAuth.getCurrentUser().getUid();
 
 
@@ -117,19 +117,17 @@ public class MobileActivity extends AppCompatActivity {
             checkRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.exists())
-                    {
+                    if (snapshot.exists()) {
                         String namefromDB = snapshot.child("name").getValue(String.class);
                         String bloodgroupfromDB = snapshot.child("bloodGroup").getValue(String.class);
                         String statusfromDB = snapshot.child("donorStatus").getValue(String.class);
 
 
-
-                        Intent homeIntent = new Intent(MobileActivity.this,HomeActivity.class);
-                        homeIntent.putExtra("loc","exists");
-                        homeIntent.putExtra("name",namefromDB);
-                        homeIntent.putExtra("bloodGroup",bloodgroupfromDB);
-                        homeIntent.putExtra("status",statusfromDB);
+                        Intent homeIntent = new Intent(MobileActivity.this, HomeActivity.class);
+                        homeIntent.putExtra("loc", "exists");
+                        homeIntent.putExtra("name", namefromDB);
+                        homeIntent.putExtra("bloodGroup", bloodgroupfromDB);
+                        homeIntent.putExtra("status", statusfromDB);
                         startActivity(homeIntent);
                         finish();
                     }

@@ -52,7 +52,7 @@
         </activity>
         <activity android:name=".MobileActivity" />
         <activity
-            android:name=".MainScreen"
+            android:name=".SlidersActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <meta-data

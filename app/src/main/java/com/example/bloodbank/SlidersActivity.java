@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainScreen extends AppCompatActivity {
+public class SlidersActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
@@ -44,7 +44,6 @@ public class MainScreen extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
-
 
 
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -119,7 +118,7 @@ public class MainScreen extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(MainScreen.this, MobileActivity.class));
+        startActivity(new Intent(SlidersActivity.this, MobileActivity.class));
 
         finish();
     }
@@ -162,23 +161,6 @@ public class MainScreen extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.TRANSPARENT);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public class MyViewPagerAdapter extends PagerAdapter {

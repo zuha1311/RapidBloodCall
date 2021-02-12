@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 public class OTPActivity extends AppCompatActivity {
 
-    private EditText inputCode1, inputCode2, inputCode3,inputCode4,inputCode5,inputCode6;
+    private EditText inputCode1, inputCode2, inputCode3, inputCode4, inputCode5, inputCode6;
     private TextView mobileTextView, resendOTP;
     private Button verifyEnabled, verifyDisabled;
 
@@ -63,9 +63,8 @@ public class OTPActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-
         mobileTextView.setText("Enter the OTP sent to +91 " + getIntent().getStringExtra("mobile"));
-        phoneNumber = "+91"+ getIntent().getStringExtra("mobile");
+        phoneNumber = "+91" + getIntent().getStringExtra("mobile");
 
 
         setOTPInputs();
@@ -74,7 +73,7 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 code = inputCode1.getText().toString() + inputCode2.getText().toString() + inputCode3.getText().toString() + inputCode4.getText().toString() + inputCode5.getText().toString()
-                + inputCode6.getText().toString();
+                        + inputCode6.getText().toString();
 
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(otpid, code);
                 signInWithPhoneAuthCredential(credential);
@@ -92,8 +91,6 @@ public class OTPActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
     }
@@ -119,7 +116,7 @@ public class OTPActivity extends AppCompatActivity {
 
                             @Override
                             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                newotpid = s ;
+                                newotpid = s;
                                 Toast.makeText(OTPActivity.this, "OTP Resent", Toast.LENGTH_SHORT).show();
                             }
                         })          // OnVerificationStateChangedCallbacks
@@ -148,7 +145,7 @@ public class OTPActivity extends AppCompatActivity {
 
                             @Override
                             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                otpid = s ;
+                                otpid = s;
                             }
                         })          // OnVerificationStateChangedCallbacks
                         .build();
@@ -156,8 +153,7 @@ public class OTPActivity extends AppCompatActivity {
 
     }
 
-    private void setOTPInputs()
-    {
+    private void setOTPInputs() {
         inputCode1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -166,8 +162,7 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!charSequence.toString().trim().isEmpty())
-                {
+                if (!charSequence.toString().trim().isEmpty()) {
                     inputCode2.requestFocus();
                 }
             }
@@ -185,8 +180,7 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!charSequence.toString().trim().isEmpty())
-                {
+                if (!charSequence.toString().trim().isEmpty()) {
                     inputCode3.requestFocus();
                 }
             }
@@ -204,7 +198,7 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!charSequence.toString().trim().isEmpty()) {
+                if (!charSequence.toString().trim().isEmpty()) {
                     inputCode4.requestFocus();
 
                 }
@@ -212,8 +206,6 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
-
 
 
             }
@@ -226,7 +218,7 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!charSequence.toString().trim().isEmpty()) {
+                if (!charSequence.toString().trim().isEmpty()) {
                     inputCode5.requestFocus();
 
                 }
@@ -236,32 +228,28 @@ public class OTPActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
 
 
+            }
+        });
+        inputCode5.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!charSequence.toString().trim().isEmpty()) {
+                    inputCode6.requestFocus();
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
 
 
             }
         });
-        inputCode5.addTextChangedListener(new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            if(!charSequence.toString().trim().isEmpty()) {
-                inputCode6.requestFocus();
-
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-
-
-
-
-        }
-    });
         inputCode6.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -270,15 +258,12 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!charSequence.toString().trim().isEmpty())
-                {
+                if (!charSequence.toString().trim().isEmpty()) {
                     verifyEnabled.setVisibility(View.VISIBLE);
                     verifyDisabled.setVisibility(View.INVISIBLE);
 
 
-                }
-                else
-                {
+                } else {
                     verifyEnabled.setVisibility(View.INVISIBLE);
                     verifyDisabled.setVisibility(View.VISIBLE);
                 }
@@ -295,7 +280,6 @@ public class OTPActivity extends AppCompatActivity {
     }
 
 
-
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -305,7 +289,7 @@ public class OTPActivity extends AppCompatActivity {
 
 
                             Intent intent = new Intent(OTPActivity.this, SignUpActivity.class);
-                            intent.putExtra("mobile",phoneNumber);
+                            intent.putExtra("mobile", phoneNumber);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             finish();
@@ -317,8 +301,6 @@ public class OTPActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 
 
 }

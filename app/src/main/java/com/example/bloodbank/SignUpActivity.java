@@ -81,10 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else if (result == -1) {
                     Toast.makeText(SignUpActivity.this, "Please enter valid blood type", Toast.LENGTH_SHORT).show();
 
-                }
-
-
-                else {
+                } else {
                     final String nameforDB = name.getText().toString();
                     final String ageforDB = age.getText().toString();
                     final String dobforDB = dob.getText().toString();
@@ -137,7 +134,7 @@ public class SignUpActivity extends AppCompatActivity {
                     userDataMap.put("dateofBirth", dob);
                     userDataMap.put("healthConditions", healthCondition);
                     userDataMap.put("bloodGroup", bloodType);
-                    userDataMap.put("compatibleWith","");
+                    userDataMap.put("compatibleWith", "");
                     userDataMap.put("donorStatus", donorStatus);
                     userDataMap.put("mobileNumber", mobile);
                     userDataMap.put("userNumber", String.valueOf(userID));
@@ -184,17 +181,14 @@ public class SignUpActivity extends AppCompatActivity {
                                         });
 
 
-
-
-                                    }else {
+                                    } else {
                                         Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
 
 
-                }
-                else if((!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("AB+"))) {
+                } else if ((!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("AB+"))) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -260,8 +254,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else if(!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("O-")) {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("O-")) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -322,8 +315,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("O+")) {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("O+")) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -384,8 +376,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("A-")) {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("A-")) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -445,8 +436,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("A+")) {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("A+")) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -508,8 +498,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("B-")) {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("B-")) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -571,8 +560,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("B+")) {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("B+")) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -634,9 +622,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else
-                 {
+                } else {
                     Toast.makeText(SignUpActivity.this, "Please try again!", Toast.LENGTH_SHORT).show();
                 }
 
