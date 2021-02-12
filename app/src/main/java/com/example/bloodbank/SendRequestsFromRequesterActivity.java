@@ -141,7 +141,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
                         }
 
                         else {
-                            holder.send.setText("SEND REQUEST");
+                            holder.send.setText("SEND");
 
                         }
                     }
