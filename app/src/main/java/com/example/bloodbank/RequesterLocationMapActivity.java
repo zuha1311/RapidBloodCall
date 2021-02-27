@@ -6,15 +6,27 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -43,8 +55,9 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient client;
     FirebaseAuth mAuth;
-    String currentUserId,senderID;
+    String currentUserId, senderID;
     Button locationConfirm;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +69,21 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         locationConfirm = findViewById(R.id.confirmLocation);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         locationConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RequesterLocationMapActivity.this,SendRequestsFromRequesterActivity.class);
+                Intent intent = new Intent(RequesterLocationMapActivity.this, SendRequestsFromRequesterActivity.class);
                 startActivity(intent);
             }
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(new PermissionListener() {
@@ -88,40 +108,57 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
 
     private void getMyLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&
+                == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
+                        == PackageManager.PERMISSION_GRANTED) {
+            try {
 
-            return;
-        }
 
-        Task<Location> task = client.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(final Location location) {
-                supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                Task<Location> task = client.getLastLocation();
+                task.addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override
-                    public void onMapReady(GoogleMap googleMap) {
+                    public void onSuccess(final Location location) {
+                        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                            @Override
+                            public void onMapReady(GoogleMap googleMap) {
+
+                                if (location != null) {
+                                    double lat = location.getLatitude();
+                                    double longitude = location.getLongitude();
+                                    LatLng latLng = new LatLng(lat, longitude);
+                                    sendToDatabase(lat, longitude);
+
+                                    Toast.makeText(RequesterLocationMapActivity.this,
+                                            "Latitude:" + location.getLatitude() + "Longitude: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
+
+                                    MarkerOptions markerOptions = new MarkerOptions().position(latLng)
+                                            .title("You are here");
+
+                                    googleMap.addMarker(markerOptions);
+                                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 25));
+                                } else {
+                                    Toast.makeText(RequesterLocationMapActivity.this, "Please enable location", Toast.LENGTH_SHORT).show();
+                                }
+                            }
 
 
-                        double lat = location.getLatitude();
-                        double longitude = location.getLongitude();
-                        LatLng latLng = new LatLng(lat,longitude);
-                        sendToDatabase(lat, longitude);
-
-                        Toast.makeText(RequesterLocationMapActivity.this,
-                                "Latitude:" + location.getLatitude() + "Longitude: " + location.getLongitude(), Toast.LENGTH_SHORT).show();
-
-                        MarkerOptions markerOptions = new MarkerOptions().position(latLng)
-                                .title("You are here");
-
-                        googleMap.addMarker(markerOptions);
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 25));
+                        });
                     }
                 });
+
+
+            } catch (SecurityException e) {
+                Log.e("Exeption: %s", e.getMessage());
             }
-        });
+
+
+        } else {
+            onStart();
+        }
+
+
     }
+
 
     private void sendToDatabase(double la, double lo) {
         final DatabaseReference RootRef;
@@ -145,9 +182,7 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(RequesterLocationMapActivity.this, "Location added to database", Toast.LENGTH_SHORT).show();
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             Toast.makeText(RequesterLocationMapActivity.this, "error", Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -156,8 +191,7 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(RequesterLocationMapActivity.this, "error", Toast.LENGTH_SHORT).show();
                     }
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     Toast.makeText(RequesterLocationMapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                 }

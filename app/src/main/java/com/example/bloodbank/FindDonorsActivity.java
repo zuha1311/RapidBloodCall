@@ -3,6 +3,7 @@ package com.example.bloodbank;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.util.HashMap;
 
@@ -95,19 +102,44 @@ public class FindDonorsActivity extends AppCompatActivity {
             }
         });
 
-        sendRequestsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (ageEditText.getText().toString().isEmpty()) {
-                    Toast.makeText(FindDonorsActivity.this, "Please enter the age to proceed", Toast.LENGTH_SHORT).show();
-                } else {
-                    getChipSelection();
-                }
 
 
-            }
-        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Dexter.withContext(getApplicationContext())
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                        sendRequestsBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                if (ageEditText.getText().toString().isEmpty()) {
+                                    Toast.makeText(FindDonorsActivity.this, "Please enter the age to proceed", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    getChipSelection();
+                                }
+
+
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                        permissionToken.continuePermissionRequest();
+                    }
+                }).check();
 
     }
 
