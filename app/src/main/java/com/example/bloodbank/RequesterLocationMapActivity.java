@@ -113,7 +113,6 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
                         == PackageManager.PERMISSION_GRANTED) {
             try {
 
-
                 Task<Location> task = client.getLastLocation();
                 task.addOnSuccessListener(new OnSuccessListener<Location>() {
                     @Override

@@ -2,6 +2,7 @@ package com.example.bloodbank;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -135,9 +136,6 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
                         manageRequests(receiverID, senderID);
                         if (current_state.equals("new")) {
                             holder.send.setText("CANCEL");
-                        } else if(senderID.equals(receiverID))
-                        {
-                            holder.send.setVisibility(View.INVISIBLE);
                         }
 
                         else {
@@ -194,6 +192,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
             }
         } else {
             Toast.makeText(this, "You cannot send requests to yourself!", Toast.LENGTH_SHORT).show();
+
         }
 
     }
@@ -257,6 +256,8 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
 
                                                                     Toast.makeText(SendRequestsFromRequesterActivity.this, "Request sent to database", Toast.LENGTH_SHORT).show();
 
+
+
                                                                 }
                                                             }
                                                         });
@@ -293,3 +294,4 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
 
     }
 }
+
