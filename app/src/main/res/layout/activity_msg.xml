@@ -54,7 +54,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="hello"
 
             android:layout_centerInParent="true"
             android:textColor="#F10707"
@@ -74,6 +74,7 @@
         android:layout_below="@id/chatUsernameDisplay"
         android:layout_marginTop="10dp"
         android:layout_above="@+id/sendMsgRelLayout"
+        android:id="@+id/chatRecyclerView"
         >
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -101,7 +102,7 @@
             android:layout_margin="10dp"
            android:textColor="#000000"
            android:fontFamily="@font/montserrat"
-           android:id="@+id/message"
+           android:id="@+id/message1"
            android:layout_centerVertical="true"
            android:background="@android:color/transparent"
            android:layout_marginStart="10dp"
@@ -111,7 +112,7 @@
           />
 
     </RelativeLayout>
-    <ImageView
+    <ImageButton
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_baseline_send_24"
@@ -120,6 +121,7 @@
         android:layout_marginEnd="15dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/sendMsgIcon"
-        android:layout_marginBottom="35dp"/>
+        android:layout_marginBottom="35dp"
+        android:background="#ffffff"/>
 
 </RelativeLayout>

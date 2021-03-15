@@ -1,4 +1,4 @@
-package com.example.bloodbank.Chatting;
+package com.example.bloodbank;
 
 public class Messages {
     private String from, message,type;
@@ -6,7 +6,6 @@ public class Messages {
     {
 
     }
-
 
     public Messages(String from, String message, String type) {
         this.from = from;

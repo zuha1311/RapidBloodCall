@@ -126,12 +126,21 @@ public class RequestsActivity extends AppCompatActivity {
                                     }
                                 });
                             }
-                            else
-                            {
-                                Toast.makeText(RequestsActivity.this, "Still fetching default", Toast.LENGTH_SHORT).show();
-                            }
+                            holder.message.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(RequestsActivity.this,MsgActivity.class);
+                                    intent.putExtra("loc","requests");
+                                    intent.putExtra("msg_user_id", list_user_id);
+                                    intent.putExtra("msg_user_name", requesterUserNumber);
+                                    startActivity(intent);
+
+                                }
+                            });
+
 
                         }
+
                     }
 
                     @Override
@@ -150,12 +159,7 @@ public class RequestsActivity extends AppCompatActivity {
 
 
 
-                /*holder.message.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        messageRequester(requesterUID);
-                    }
-                });*/
+
 
             }
 
