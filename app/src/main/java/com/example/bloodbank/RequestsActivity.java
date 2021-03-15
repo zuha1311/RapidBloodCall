@@ -35,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RequestsActivity extends AppCompatActivity {
 
@@ -51,17 +52,19 @@ public class RequestsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requests);
 
-        recyclerView = findViewById(R.id.requestsRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         current_state = "new";
 
         mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
+        currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         receiveRequestsRef = FirebaseDatabase.getInstance().getReference().child("Send_Requests");
         msgsRef = FirebaseDatabase.getInstance().getReference().child("Messages from Not Accepted");
+
+        recyclerView = findViewById(R.id.requestsRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         backBtn = findViewById(R.id.requestsBackBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +74,7 @@ public class RequestsActivity extends AppCompatActivity {
             }
         });
 
-        getRequests();
+
 
     }
 
@@ -93,6 +96,7 @@ public class RequestsActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull ReceiveRequestsViewHolder holder, int position, @NonNull ReceiveRequests model) {
 
                 final String list_user_id = getRef(position).getKey();
+                final String requesterUID =  model.getUid();
 
                 DatabaseReference getTypeRef = getRef(position).child("request_type").getRef();
                 getTypeRef.addValueEventListener(new ValueEventListener() {
@@ -100,6 +104,8 @@ public class RequestsActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             String type = snapshot.getValue().toString();
+
+
                             if (type.equals("Received")) {
                                 usersRef.child(list_user_id).addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -107,7 +113,7 @@ public class RequestsActivity extends AppCompatActivity {
 
                                         requesterUserNumber = snapshot.child("userNumber").getValue().toString();
                                         String requesterbloodGroup = snapshot.child("bloodGroup").getValue().toString();
-                                        final String requesterUID =  model.getUid();
+
                                         holder.userID.setText(requesterUserNumber);
                                         holder.bloodgroup.setText("Blood Group: " + requesterbloodGroup);
                                         holder.decline.setOnClickListener(new View.OnClickListener() {
@@ -176,7 +182,7 @@ public class RequestsActivity extends AppCompatActivity {
 
     }
 
-    private void messageRequester(String receiverUID) {
+   /* private void messageRequester(String receiverUID) {
 
         receiveRequestsRef.child(senderID).addValueEventListener(new ValueEventListener() {
             @Override
@@ -254,17 +260,18 @@ public class RequestsActivity extends AppCompatActivity {
 
                     }
                 });
-    }
+    }*/
 
-    private void CancelDonationRequest(String receiverUID) {
+    private void CancelDonationRequest(String requesterUID) {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference();
 
-        receiveRequestsRef.child(senderID).child(receiverUID).removeValue()
+        receiveRequestsRef.child(currentUserId).child(requesterUID).removeValue()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (task.isSuccessful()) {
-                            receiveRequestsRef.child(senderID).child(receiverUID)
+                            receiveRequestsRef.child(requesterUID).child(currentUserId)
                                     .removeValue().addOnCompleteListener(
                                     new OnCompleteListener<Void>() {
                                         @Override

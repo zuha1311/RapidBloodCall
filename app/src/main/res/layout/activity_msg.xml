@@ -60,7 +60,7 @@
             android:textColor="#F10707"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/montserrat"
-            android:textStyle="bold"
+
             android:id="@+id/chatActivityUsername"
             android:textSize="18dp">
 
@@ -75,6 +75,7 @@
         android:layout_marginTop="10dp"
         android:layout_above="@+id/sendMsgRelLayout"
         android:id="@+id/chatRecyclerView"
+        android:layout_margin="10dp"
         >
 
     </androidx.recyclerview.widget.RecyclerView>

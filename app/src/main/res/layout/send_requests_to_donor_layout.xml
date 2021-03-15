@@ -52,13 +52,26 @@
         android:layout_height="40dp"
         android:background="@drawable/ic_accept_request_btn"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
         android:text="SEND"
         android:textColor="#ffffff"
         android:textStyle="bold"
         android:fontFamily="@font/montserrat"
         android:id="@+id/sendRequestBtn"/>
-
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_decline_request_btn"
+        android:layout_alignParentEnd="true"
+        android:text="Message"
+        android:layout_alignParentBottom="true"
+        android:textColor="#502727"
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/messageDonorBtn"
+        android:layout_below="@+id/acceptRequestBtn"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"/>
 
     <ImageView
         android:layout_width="match_parent"

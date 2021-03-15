@@ -35,7 +35,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
 
     String bloodGroup1;
     private DatabaseReference findDonorsRef, sendRequestsRef, acceptReqNotifyRef;
-    private String currentUserId, current_state, senderID;
+    private String currentUserId, current_state, senderID,username="";
     private FirebaseAuth mAuth;
     private RecyclerView showDonorsRecyclerView;
     private ImageView backBtn;
@@ -69,7 +69,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
 
         findDonorsRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        getRequesterBloodType();
+
     }
 
     @Override
@@ -126,9 +126,11 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
                 = new FirebaseRecyclerAdapter<FindDonors, FindDonorViewHolder>(option) {
             @Override
             protected void onBindViewHolder(@NonNull FindDonorViewHolder holder, int position, @NonNull FindDonors model) {
+                final String list_user_id = getRef(position).getKey();
                 holder.userID.setText(model.getUserNumber());
                 holder.bloodgroup.setText("Blood Group: " + model.getBloodGroup());
                 String receiverID = model.getUid();
+
 
                 holder.send.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -142,6 +144,15 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
                             holder.send.setText("SEND");
 
                         }
+                    }
+                });
+
+                holder.message.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                      sendMessage(list_user_id);
+
+
                     }
                 });
 
@@ -159,6 +170,31 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
         showDonorsRecyclerView.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.startListening();
     }
+
+    private void sendMessage(String list_user_id) {
+        findDonorsRef.child(list_user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists())
+                {
+                    username = snapshot.child("userNumber").getValue().toString();
+                      Intent intent = new Intent(SendRequestsFromRequesterActivity.this,MsgActivity.class);
+                        intent.putExtra("loc","requesterSide");
+                        intent.putExtra("msg_user_id", list_user_id);
+                        intent.putExtra("msg_user_name", username);
+                        startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
 
     private void manageRequests(String receiverID, String senderID) {
 
@@ -279,7 +315,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
     public static class FindDonorViewHolder extends RecyclerView.ViewHolder {
 
         TextView userID, bloodgroup;
-        Button send;
+        Button send,message;
 
         public FindDonorViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -287,6 +323,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
             userID = itemView.findViewById(R.id.donorID);
             bloodgroup = itemView.findViewById(R.id.bloodGroupTextView);
             send = itemView.findViewById(R.id.sendRequestBtn);
+            message = itemView.findViewById(R.id.messageDonorBtn);
 
 
         }

@@ -1,6 +1,7 @@
 package com.example.bloodbank;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.example.bloodbank.Chatting.Name;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -90,6 +92,42 @@ public class MsgActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RootRef.child("Messages").child(msgSenderID).child(msgReceiverID)
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        Messages messages = snapshot.getValue(Messages.class);
+                        msgsList.add(messages);
+                        messageAdapter.notifyDataSetChanged();
+                        msgsRecyclerView.smoothScrollToPosition(msgsRecyclerView.getAdapter().getItemCount());
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
+
     private void sendMessage() {
 
         String msgInputText = message.getText().toString();
@@ -140,7 +178,7 @@ public class MsgActivity extends AppCompatActivity {
 
     private void getIntentMethod() {
 
-       if(location.equals("requests"))
+      /* if(location.equals("requests"))
        {
            username.setText("Receiver #"+chatRecipient.get(position).getUsername());
            position = getIntent().getIntExtra("position", -1);
@@ -149,26 +187,48 @@ public class MsgActivity extends AppCompatActivity {
            {
                chatRecipient = nameList;
            }
-       }
-       else
-       {
-           usersRef.addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(@NonNull DataSnapshot snapshot) {
-                   if(snapshot.child(msgReceiverID).exists())
-                   {
-                       msgUsername = snapshot.child(msgReceiverID).child("userNumber").getValue().toString();
-                       username.setText("Receiver #"+msgUsername);
-                   }
-               }
+       }*/
 
-               @Override
-               public void onCancelled(@NonNull DatabaseError error) {
+      if(location.equals("requesterSide"))
+      {
+          usersRef.addValueEventListener(new ValueEventListener() {
+              @Override
+              public void onDataChange(@NonNull DataSnapshot snapshot) {
+                  if(snapshot.child(msgReceiverID).exists())
+                  {
+                      msgUsername = snapshot.child(msgReceiverID).child("userNumber").getValue().toString();
+                      username.setText("Donor #"+msgUsername);
+                  }
+              }
 
-               }
-           });
+              @Override
+              public void onCancelled(@NonNull DatabaseError error) {
 
-       }
+              }
+          });
+      }
+      else
+      {
+          usersRef.addValueEventListener(new ValueEventListener() {
+              @Override
+              public void onDataChange(@NonNull DataSnapshot snapshot) {
+                  if(snapshot.child(msgReceiverID).exists())
+                  {
+                      msgUsername = snapshot.child(msgReceiverID).child("userNumber").getValue().toString();
+                      username.setText("Receiver #"+msgUsername);
+                  }
+              }
+
+              @Override
+              public void onCancelled(@NonNull DatabaseError error) {
+
+              }
+          });
+      }
+
+
+
+
 
 
 
