@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bloodbank">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,9 +19,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DonorLocationActivity"></activity>
-        <activity android:name=".SendRequestsFromRequesterActivity" />
-        <activity android:name=".RequesterLocationMapActivity" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -33,6 +32,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".RouteActivity"
+            android:label="@string/title_activity_route"></activity>
+        <activity android:name=".DonorLocationActivity" />
+        <activity android:name=".SendRequestsFromRequesterActivity" />
+        <activity android:name=".RequesterLocationMapActivity" />
         <activity android:name=".Chatting.ChatListActivity" />
         <activity android:name=".FindDonorsActivity" />
         <activity android:name=".SettingActivity" />
@@ -58,8 +63,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <service
-            android:name = ".NotificationService"
+            android:name=".NotificationService"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="your.app.domain.NotificationService" />
@@ -68,7 +74,5 @@
             </intent-filter>
         </service>
     </application>
-
-
 
 </manifest>
