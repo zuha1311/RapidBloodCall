@@ -54,8 +54,9 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private String latDonor, longDonor, latRec, longRec;
     private DatabaseReference RootRef;
-    private MarkerOptions mOrigin, mDestination;
+    private LatLng mOrigin, mDestination;
     private String TAG = "so47492459";
+    private double latDonordbl, longDonordbl, latRecdbl, longRecdbl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +76,25 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
-*/     /* RootRef = FirebaseDatabase.getInstance().getReference();
+*/     RootRef = FirebaseDatabase.getInstance().getReference();
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                latDonor = snapshot.child("Route").child("latitudeDonor").getValue().toString();
-                longDonor = snapshot.child("Route").child("longitudeDonor").getValue().toString();
-                latRec = snapshot.child("Route").child("latitudeReceiver").getValue().toString();
-                longRec = snapshot.child("Route").child("longitudeReceiver").getValue().toString();
+
+                if(snapshot.exists())
+                {
+                    long requestID = (snapshot.child("Requests").getChildrenCount());
+                    latDonor = snapshot.child("Route").child(String.valueOf(requestID)).child("latitudeDonor").getValue().toString();
+                    longDonor = snapshot.child("Route").child(String.valueOf(requestID)).child("longitudeDonor").getValue().toString();
+                    latRec = snapshot.child("Route").child(String.valueOf(requestID)).child("latitudeReceiver").getValue().toString();
+                    longRec = snapshot.child("Route").child(String.valueOf(requestID)).child("longitudeReceiver").getValue().toString();
+                    latDonordbl = Double.parseDouble(latDonor);
+                    longDonordbl = Double.parseDouble(longDonor);
+                    latRecdbl = Double.parseDouble(latRec);
+                    longRecdbl = Double.parseDouble(longDonor);
+                }
+
+
 
             }
 
@@ -91,8 +103,9 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
 
             }
         });
-        mOrigin = new LatLng(Double.parseDouble(latDonor), Double.parseDouble(longDonor));
-        mDestination = new LatLng(Double.parseDouble(latRec), Double.parseDouble(longRec));*/
+        mOrigin = new LatLng(latDonordbl,longDonordbl);
+        mDestination = new LatLng(latRecdbl,longRecdbl);
+
 
     }
 
@@ -101,13 +114,15 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng barcelona = new LatLng(41.385064,2.173403);
+        /*LatLng barcelona = new LatLng(41.385064,2.173403);
         mMap.addMarker(new MarkerOptions().position(barcelona).title("Marker in Barcelona"));
 
         LatLng madrid = new LatLng(40.416775,-3.70379);
         mMap.addMarker(new MarkerOptions().position(madrid).title("Marker in Madrid"));
 
-        LatLng zaragoza = new LatLng(41.648823,-0.889085);
+        LatLng zaragoza = new LatLng(41.648823,-0.889085);*/
+        mMap.addMarker(new MarkerOptions().position(mOrigin).title("You are here"));
+        mMap.addMarker(new MarkerOptions().position(mDestination).title("The receiver is here"));
 
         //Define list to get all latlng for the route
         List<LatLng> path = new ArrayList();
@@ -117,7 +132,7 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey("AIzaSyCTEy9VwZaOTDq0QfFJ1xryhXevXNe5F6Q")
                 .build();
-        DirectionsApiRequest req = DirectionsApi.getDirections(context, "41.385064,2.173403", "40.416775,-3.70379");
+        DirectionsApiRequest req = DirectionsApi.getDirections(context, String.valueOf(mOrigin), String.valueOf(mDestination));
         try {
             DirectionsResult res = req.await();
 
@@ -170,7 +185,7 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(zaragoza, 6));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mOrigin, 6));
     }
        /* mMap.addMarker(mOrigin);
         mMap.addMarker(mDestination);
