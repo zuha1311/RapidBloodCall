@@ -54,7 +54,6 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private String latDonor, longDonor, latRec, longRec;
     private DatabaseReference RootRef;
-    private LatLng mOrigin, mDestination;
     private String TAG = "so47492459";
     private double latDonordbl, longDonordbl, latRecdbl, longRecdbl;
 
@@ -76,35 +75,7 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
 
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
-*/     RootRef = FirebaseDatabase.getInstance().getReference();
-        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if(snapshot.exists())
-                {
-                    long requestID = (snapshot.child("Requests").getChildrenCount());
-                    latDonor = snapshot.child("Route").child(String.valueOf(requestID)).child("latitudeDonor").getValue().toString();
-                    longDonor = snapshot.child("Route").child(String.valueOf(requestID)).child("longitudeDonor").getValue().toString();
-                    latRec = snapshot.child("Route").child(String.valueOf(requestID)).child("latitudeReceiver").getValue().toString();
-                    longRec = snapshot.child("Route").child(String.valueOf(requestID)).child("longitudeReceiver").getValue().toString();
-                    latDonordbl = Double.parseDouble(latDonor);
-                    longDonordbl = Double.parseDouble(longDonor);
-                    latRecdbl = Double.parseDouble(latRec);
-                    longRecdbl = Double.parseDouble(longDonor);
-                }
-
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        mOrigin = new LatLng(latDonordbl,longDonordbl);
-        mDestination = new LatLng(latRecdbl,longRecdbl);
+*/
 
 
     }
@@ -114,6 +85,40 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        RootRef = FirebaseDatabase.getInstance().getReference();
+        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long requestID = (snapshot.child("Requests").getChildrenCount());
+                if(snapshot.child("Requests").child(String.valueOf(requestID)).exists())
+                {
+                    latDonor = Objects.requireNonNull(snapshot.child("Route").child(String.valueOf(requestID)).child("latitudeDonor").getValue(String.class));
+                    longDonor = Objects.requireNonNull(snapshot.child("Route").child(String.valueOf(requestID)).child("longitudeDonor").getValue(String.class));
+                    latRec = Objects.requireNonNull(snapshot.child("Route").child(String.valueOf(requestID)).child("latitudeReceiver").getValue(String.class));
+                    longRec = Objects.requireNonNull(snapshot.child("Route").child(String.valueOf(requestID)).child("longitudeReceiver").getValue(String.class));
+
+                }
+                if(!latDonor.isEmpty() && !longDonor.isEmpty() && !latRec.isEmpty() && !longRec.isEmpty())
+                {
+                    try{
+                        latDonordbl = Double.parseDouble(latDonor);
+                        longDonordbl = Double.parseDouble(longDonor);
+                        latRecdbl = Double.parseDouble(latRec);
+                        longRecdbl = Double.parseDouble(longDonor);
+                    }catch(NumberFormatException e){
+                        e.getMessage();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         /*LatLng barcelona = new LatLng(41.385064,2.173403);
         mMap.addMarker(new MarkerOptions().position(barcelona).title("Marker in Barcelona"));
 
@@ -121,6 +126,8 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap.addMarker(new MarkerOptions().position(madrid).title("Marker in Madrid"));
 
         LatLng zaragoza = new LatLng(41.648823,-0.889085);*/
+       LatLng mOrigin = new LatLng(latDonordbl,longDonordbl);
+       LatLng mDestination = new LatLng(latRecdbl,longRecdbl);
         mMap.addMarker(new MarkerOptions().position(mOrigin).title("You are here"));
         mMap.addMarker(new MarkerOptions().position(mDestination).title("The receiver is here"));
 
