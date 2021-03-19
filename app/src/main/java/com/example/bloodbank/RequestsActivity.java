@@ -41,7 +41,7 @@ public class RequestsActivity extends AppCompatActivity {
 
 
     RecyclerView recyclerView;
-    private DatabaseReference receiveRequestsRef, usersRef,msgsRef;
+    private DatabaseReference receiveRequestsRef, usersRef, msgsRef;
     private String currentUserId, current_state, senderID;
     private FirebaseAuth mAuth;
     private ImageView backBtn;
@@ -75,7 +75,6 @@ public class RequestsActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     @Override
@@ -96,7 +95,10 @@ public class RequestsActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull ReceiveRequestsViewHolder holder, int position, @NonNull ReceiveRequests model) {
 
                 final String list_user_id = getRef(position).getKey();
-                final String requesterUID =  model.getUid();
+                final String requesterUID = model.getUid();
+
+
+
 
                 DatabaseReference getTypeRef = getRef(position).child("request_type").getRef();
                 getTypeRef.addValueEventListener(new ValueEventListener() {
@@ -119,7 +121,7 @@ public class RequestsActivity extends AppCompatActivity {
                                         holder.decline.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                CancelDonationRequest(requesterUID);
+                                                CancelDonationRequest(list_user_id);
                                             }
                                         });
 
@@ -135,8 +137,8 @@ public class RequestsActivity extends AppCompatActivity {
                             holder.message.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Intent intent = new Intent(RequestsActivity.this,MsgActivity.class);
-                                    intent.putExtra("loc","requests");
+                                    Intent intent = new Intent(RequestsActivity.this, MsgActivity.class);
+                                    intent.putExtra("loc", "requests");
                                     intent.putExtra("msg_user_id", list_user_id);
                                     intent.putExtra("msg_user_name", requesterUserNumber);
                                     startActivity(intent);
@@ -158,13 +160,12 @@ public class RequestsActivity extends AppCompatActivity {
                 holder.accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(RequestsActivity.this, DonorLocationActivity.class);
+
+                       Intent intent = new Intent(RequestsActivity.this, DonorLocationActivity.class);
+                        intent.putExtra("senderID",list_user_id);
                         startActivity(intent);
                     }
                 });
-
-
-
 
 
             }
@@ -295,7 +296,7 @@ public class RequestsActivity extends AppCompatActivity {
     public static class ReceiveRequestsViewHolder extends RecyclerView.ViewHolder {
 
         TextView userID, bloodgroup;
-        Button accept, decline,message;
+        Button accept, decline, message;
 
         public ReceiveRequestsViewHolder(@NonNull View itemView) {
             super(itemView);

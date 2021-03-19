@@ -26,8 +26,8 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference usersSignUpRef, usersDirectRef;
     private FirebaseAuth mAuth;
     private String currentUserid;
-    String uid;
-    String loc;
+    private String uid;
+    private String loc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

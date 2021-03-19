@@ -31,15 +31,15 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.HashMap;
 
 public class FindDonorsActivity extends AppCompatActivity {
-    ChipGroup bloodTypeChipGroup, genderChipGroup, relationChipGroup;
-    EditText ageEditText;
-    ImageView sendRequestsShadow, sendRequestsBtn, backBtn;
+    private ChipGroup bloodTypeChipGroup, genderChipGroup, relationChipGroup;
+    private EditText ageEditText;
+    private ImageView sendRequestsShadow, sendRequestsBtn, backBtn;
 
     private FirebaseAuth mAuth;
     private String currentUserId;
     private String requestStatus = "Pending";
     private long requestID = 0;
-    String bloodGroupSelection = null, relationSelection = null, genderSelection = null;
+    private String bloodGroupSelection = null, relationSelection = null, genderSelection = null;
 
 
     @Override
@@ -193,9 +193,10 @@ public class FindDonorsActivity extends AppCompatActivity {
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    requestID = (snapshot.child("Requests").child(currentUserId).getChildrenCount());
+                    long requestNo = requestID + 1;
                     if (!(snapshot.child("Requests").child(currentUserId)).exists()) {
-                        requestID = (snapshot.child("Requests").getChildrenCount());
-                        long requestNo = requestID + 1;
+
                         HashMap<String, Object> requestsDataMap = new HashMap<>();
                         requestsDataMap.put("uid", currentUserId);
                         requestsDataMap.put("bloodGroup", bloodGroupSelection);
@@ -208,16 +209,19 @@ public class FindDonorsActivity extends AppCompatActivity {
                         requestsDataMap.put("RequestId", String.valueOf(requestNo));
 
 
-                        RootRef.child("Requests").child(String.valueOf(requestNo)).updateChildren(requestsDataMap)
+                        RootRef.child("Requests").child(currentUserId).child(String.valueOf(requestNo)).updateChildren(requestsDataMap)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(FindDonorsActivity.this, "Request sent to database", Toast.LENGTH_SHORT).show();
+                                            bloodTypeChipGroup.clearCheck();
+                                            genderChipGroup.clearCheck();
+                                            relationChipGroup.clearCheck();
+                                            ageEditText.setText("");
 
                                             Intent intent = new Intent(FindDonorsActivity.this, RequesterLocationMapActivity.class);
                                             startActivity(intent);
-
                                             finish();
                                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -229,7 +233,11 @@ public class FindDonorsActivity extends AppCompatActivity {
 
 
                     } else if (snapshot.child("Requests").child(currentUserId).exists()) {
+
+
                         Toast.makeText(FindDonorsActivity.this, "You have already made a request", Toast.LENGTH_SHORT).show();
+
+
                     }
                 }
 

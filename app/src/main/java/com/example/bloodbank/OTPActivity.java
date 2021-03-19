@@ -35,12 +35,11 @@ public class OTPActivity extends AppCompatActivity {
     private TextView mobileTextView, resendOTP;
     private Button verifyEnabled, verifyDisabled;
 
-    FirebaseAuth mAuth;
-    String otpid, newotpid;
-    String phoneNumber;
+    private FirebaseAuth mAuth;
+    private String otpid, newotpid;
+    private String phoneNumber;
     public String code;
-    FirebaseDatabase database;
-    DatabaseReference mobReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

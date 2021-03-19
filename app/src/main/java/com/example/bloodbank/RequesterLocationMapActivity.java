@@ -52,11 +52,11 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.HashMap;
 
 public class RequesterLocationMapActivity extends AppCompatActivity {
-    SupportMapFragment supportMapFragment;
-    FusedLocationProviderClient client;
-    FirebaseAuth mAuth;
-    String currentUserId, senderID;
-    Button locationConfirm;
+    private SupportMapFragment supportMapFragment;
+    private FusedLocationProviderClient client;
+    private FirebaseAuth mAuth;
+    private String currentUserId, senderID;
+    private Button locationConfirm;
     private FusedLocationProviderClient fusedLocationClient;
 
     @Override
@@ -168,27 +168,27 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 try {
-                    if (!snapshot.child("Requests").child(currentUserId).exists()) {
-                        long requestID = (snapshot.child("Requests").getChildrenCount());
+                    if (snapshot.child("Requests").child(currentUserId).exists()) {
+                        long requestID = (snapshot.child("Requests").child(currentUserId).getChildrenCount());
 
                         HashMap<String, Object> locDataMap = new HashMap<>();
                         locDataMap.put("latitude", String.valueOf(la));
                         locDataMap.put("longitude", String.valueOf(lo));
 
-                        RootRef.child("Requests").child(String.valueOf(requestID)).updateChildren(locDataMap)
+                        RootRef.child("Requests").child(currentUserId).child(String.valueOf(requestID)).updateChildren(locDataMap)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(RequesterLocationMapActivity.this, "Location added to database", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            Toast.makeText(RequesterLocationMapActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RequesterLocationMapActivity.this, "error1", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
 
                     } else {
-                        Toast.makeText(RequesterLocationMapActivity.this, "error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RequesterLocationMapActivity.this, "error2", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(RequesterLocationMapActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();

@@ -34,17 +34,17 @@ import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    Button registerForCheckeupBtn;
-    EditText name, bloodGroup, dob, healthConditions, age;
-    String[] bloodTypes = {"A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "a+", "a-", "b+", "b-", "ab+", "ab-", "o+", "o-", "Ab+", "Ab-", "aB+", "aB-"};
-    String checkblood;
-    FirebaseDatabase database;
+    private Button registerForCheckeupBtn;
+    private EditText name, bloodGroup, dob, healthConditions, age;
+    private String[] bloodTypes = {"A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "a+", "a-", "b+", "b-", "ab+", "ab-", "o+", "o-", "Ab+", "Ab-", "aB+", "aB-"};
+    private String checkblood;
+    private FirebaseDatabase database;
     private DatabaseReference UserReference;
-    String phone;
+    private String phone;
     private String defaultStatus = "Unapproved";
-    String currentUserId;
+    private String currentUserId;
     private FirebaseAuth mAuth;
-    long maxID = 1040;
+    private long maxID = 1040;
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
 
 

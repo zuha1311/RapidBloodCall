@@ -85,12 +85,12 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
             usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.child("Requests").child(currentUserId).exists()) {
+                    if (snapshot.child("Requests").child(currentUserId).exists()) {
 
-                        long requestID = (snapshot.child("Requests").getChildrenCount());
+                        long requestID = (snapshot.child("Requests").child(currentUserId).getChildrenCount());
                         senderID = snapshot.child("Users").child(currentUserId).child("uid").getValue().toString();
 
-                        String bloodfromDB = snapshot.child("Requests").child(String.valueOf(requestID)).child("bloodGroup").getValue(String.class);
+                        String bloodfromDB = snapshot.child("Requests").child(currentUserId).child(String.valueOf(requestID)).child("bloodGroup").getValue(String.class);
 
                         Toast.makeText(SendRequestsFromRequesterActivity.this, bloodfromDB, Toast.LENGTH_SHORT).show();
                         assert bloodfromDB != null;
