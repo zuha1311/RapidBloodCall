@@ -49,6 +49,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class RouteActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -69,26 +70,70 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        requestPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.googleMapRoute);
 
         mapFragment.getMapAsync(this);
         senderiD = getIntent().getStringExtra("senderID");
 
+
+
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+
         RootRef = FirebaseDatabase.getInstance().getReference();
         RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 long requestID = (snapshot.child("Requests").child(senderiD).getChildrenCount());
-                if (snapshot.child("Route").child(senderiD).child(String.valueOf(requestID)).exists()) {
+                {   Map<String,Object> td = (HashMap<String,Object>) snapshot.child("Requests").child(senderiD).child(String.valueOf(requestID)).getValue();
+
+                if(td==null) return;
+
+                double latDonor = Double.parseDouble(td.get("latitudeDonor").toString());
+                    double longDonor = Double.parseDouble(td.get("longitudeDonor").toString());
+                    double latRec = Double.parseDouble(td.get("latitudeReceiver").toString());
+                    double longRec = Double.parseDouble(td.get("longitudeReceiver").toString());
+
+                /*if (snapshot.child("Route").child(senderiD).child(String.valueOf(requestID)).exists()) {
                     double latDonor = (double) snapshot.child("Route").child(senderiD).child(String.valueOf(requestID)).child("latitudeDonor").getValue();
                     double longDonor = (double) snapshot.child("Route").child(senderiD).child(String.valueOf(requestID)).child("longitudeDonor").getValue();
                     double latRec = (double) snapshot.child("Route").child(senderiD).child(String.valueOf(requestID)).child("latitudeReceiver").getValue();
                     double longRec = (double) snapshot.child("Route").child(senderiD).child(String.valueOf(requestID)).child("longitudeReceiver").getValue();
-                    mOrigin = new LatLng(latDonor, longDonor);
-                    mDestination = new LatLng(latRec, longRec);
-                }
 
+                    Toast.makeText(RouteActivity.this, (int) latDonor , Toast.LENGTH_SHORT).show();
+                    mOrigin = new LatLng(latDonor, longDonor);
+                    mDestination = new LatLng(latRec, longRec);*/
+
+                    mMap = googleMap;
+                    mOrigin = new LatLng(latDonor,longDonor);
+                    mDestination = new LatLng(latRec,longRec);
+                    mMap.getUiSettings().setZoomControlsEnabled(true);
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    mMap.setMyLocationEnabled(true);
+                    mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+                    mMap.addMarker(new MarkerOptions().position(mOrigin).title("Origin"));
+                    mMap.addMarker(new MarkerOptions().position(mDestination).title("Destination"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mOrigin,8f));
+                    new TaskDirectionRequest().execute(buildRequestUrl(mOrigin,mDestination));
+
+                }
 
             }
 
@@ -98,31 +143,6 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         });
 
-    }
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-        // Show marker on the screen and adjust the zoom level
-        mMap.addMarker(new MarkerOptions().position(mOrigin).title("Origin"));
-        mMap.addMarker(new MarkerOptions().position(mDestination).title("Destination"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mOrigin,8f));
-        new TaskDirectionRequest().execute(buildRequestUrl(mOrigin,mDestination));
     }
 
     /**
@@ -147,12 +167,8 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         return url;
     }
 
-    /**
-     * Request direction from Google Direction API
-     *
-     * @param requestedUrl see {@link #buildRequestUrl(LatLng, LatLng)}
-     * @return JSON data routes/direction
-     */
+
+
     private String requestDirection(String requestedUrl) {
         String responseString = "";
         InputStream inputStream = null;
@@ -258,11 +274,7 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
-    /**
-     * Request app permission for API 23/ Android 6.0
-     *
-     * @param permission
-     */
+
     private void requestPermission(String permission) {
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -270,7 +282,6 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
                     MY_PERMISSIONS_REQUEST);
         }
     }
-
 
     }
 
