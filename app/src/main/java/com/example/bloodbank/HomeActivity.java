@@ -1,17 +1,33 @@
 package com.example.bloodbank;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bloodbank.util.Constants;
 import com.example.bloodbank.util.Prevalent;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -71,7 +87,60 @@ public class HomeActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
+        
+        donateBloodEnabled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                sendNotification();
+            }
+        });
+
+    }
+
+    private void sendNotification() {
+
+        String channelID = "location_notification_channel";
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
+        
+       
+
+        Intent resultIntent = new Intent();
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                getApplicationContext(), 0, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                getApplicationContext(), channelID
+        );
+        
+        builder.setSmallIcon(R.drawable.logo);
+        builder.setContentTitle("Blood Bank");
+        builder.setDefaults(NotificationCompat.DEFAULT_ALL);
+        builder.setContentText("You have a new request");
+        builder.setAutoCancel(false);
+        builder.setContentIntent(pendingIntent);
+        builder.setPriority(NotificationCompat.PRIORITY_MAX);
+        notificationManager.notify(0,builder.build());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (notificationManager != null && notificationManager.getNotificationChannel(channelID) == null) {
+                NotificationChannel notificationChannel = new NotificationChannel(
+                        channelID,
+                        "Blood Bank",
+                        NotificationManager.IMPORTANCE_HIGH
+
+                );
+                notificationChannel.setDescription("This channel is being used by blood bank");
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+        }
+
+
+        
     }
 
     private void retireveUserInfoDirect() {
@@ -137,6 +206,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }
