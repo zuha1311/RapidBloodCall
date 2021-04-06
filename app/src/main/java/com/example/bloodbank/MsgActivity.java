@@ -42,7 +42,7 @@ public class MsgActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager;
     private MessageAdapter messageAdapter;
     private ImageView backBtn;
-    private String location, msgReceiverID="",msgUsername="",msgSenderID="",senderUserId;
+    private String location, msgReceiverID = "", msgUsername = "", msgSenderID = "", senderUserId;
     private DatabaseReference usersRef, RootRef;
     private EditText message;
     private ImageButton sendMsg;
@@ -132,12 +132,9 @@ public class MsgActivity extends AppCompatActivity {
 
         String msgInputText = message.getText().toString();
 
-        if(TextUtils.isEmpty(msgInputText))
-        {
+        if (TextUtils.isEmpty(msgInputText)) {
             Toast.makeText(this, "Please write a message", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
             String messageSenderRef = "Messages/" + msgSenderID + "/" + msgReceiverID;
             String messageReceiverRef = "Messages/" + msgReceiverID + "/" + msgSenderID;
 
@@ -147,8 +144,8 @@ public class MsgActivity extends AppCompatActivity {
 
             Map messageTextBody = new HashMap();
             messageTextBody.put("message", msgInputText);
-            messageTextBody.put("type","text");
-            messageTextBody.put("from",msgSenderID);
+            messageTextBody.put("type", "text");
+            messageTextBody.put("from", msgSenderID);
 
             Map messageBodyDetails = new HashMap();
             messageBodyDetails.put(messageSenderRef + "/" + messagePushId, messageTextBody);
@@ -158,18 +155,14 @@ public class MsgActivity extends AppCompatActivity {
             RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task) {
-                    if(task.isSuccessful())
-                    {
+                    if (task.isSuccessful()) {
                         Toast.makeText(MsgActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
+                    } else {
                         Toast.makeText(MsgActivity.this, "Message sending unsuccessful", Toast.LENGTH_SHORT).show();
                     }
                     message.setText("");
                 }
             });
-
 
 
         }
@@ -189,48 +182,37 @@ public class MsgActivity extends AppCompatActivity {
            }
        }*/
 
-      if(location.equals("requesterSide"))
-      {
-          usersRef.addValueEventListener(new ValueEventListener() {
-              @Override
-              public void onDataChange(@NonNull DataSnapshot snapshot) {
-                  if(snapshot.child(msgReceiverID).exists())
-                  {
-                      msgUsername = snapshot.child(msgReceiverID).child("userNumber").getValue().toString();
-                      username.setText("Donor #"+msgUsername);
-                  }
-              }
+        if (location.equals("requesterSide")) {
+            usersRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.child(msgReceiverID).exists()) {
+                        msgUsername = snapshot.child(msgReceiverID).child("userNumber").getValue().toString();
+                        username.setText("Donor #" + msgUsername);
+                    }
+                }
 
-              @Override
-              public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-              }
-          });
-      }
-      else
-      {
-          usersRef.addValueEventListener(new ValueEventListener() {
-              @Override
-              public void onDataChange(@NonNull DataSnapshot snapshot) {
-                  if(snapshot.child(msgReceiverID).exists())
-                  {
-                      msgUsername = snapshot.child(msgReceiverID).child("userNumber").getValue().toString();
-                      username.setText("Receiver #"+msgUsername);
-                  }
-              }
+                }
+            });
+        } else {
+            usersRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.child(msgReceiverID).exists()) {
+                        msgUsername = snapshot.child(msgReceiverID).child("userNumber").getValue().toString();
+                        username.setText("Receiver #" + msgUsername);
+                    }
+                }
 
-              @Override
-              public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-              }
-          });
-      }
-
-
-
-
-
-
+                }
+            });
+        }
 
     }
 }

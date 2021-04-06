@@ -150,9 +150,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 if ((snapshot.child("Users").child(currentUserId).exists())) {
                                                     HashMap<String, Object> compatibleMap = new HashMap<>();
-                                                    compatibleMap.put("A-", true);
-                                                    compatibleMap.put("B-", true);
-                                                    compatibleMap.put("O-", true);
+                                                    compatibleMap.put("AB+", true);
                                                     compatibleMap.put("AB-", true);
 
                                                     RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
@@ -188,8 +186,7 @@ public class SignUpActivity extends AppCompatActivity {
                             });
 
 
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("AB+")) {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("AB+")) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -215,13 +212,7 @@ public class SignUpActivity extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 if ((snapshot.child("Users").child(currentUserId).exists())) {
                                                     HashMap<String, Object> compatibleMap = new HashMap<>();
-                                                    compatibleMap.put("A-", true);
-                                                    compatibleMap.put("B-", true);
-                                                    compatibleMap.put("O-", true);
-                                                    compatibleMap.put("AB-", true);
-                                                    compatibleMap.put("A+", true);
-                                                    compatibleMap.put("B+", true);
-                                                    compatibleMap.put("O+", true);
+
                                                     compatibleMap.put("AB+", true);
 
                                                     RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
@@ -255,8 +246,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("O-")) {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("O-")) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -283,256 +273,14 @@ public class SignUpActivity extends AppCompatActivity {
                                                 if ((snapshot.child("Users").child(currentUserId).exists())) {
                                                     HashMap<String, Object> compatibleMap = new HashMap<>();
 
-                                                    compatibleMap.put("O-", true);
-
-
-                                                    RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
-                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    if (task.isSuccessful()) {
-                                                                        Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
-
-                                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                                        intent.putExtra("loc", "signUp");
-                                                                        startActivity(intent);
-                                                                        finish();
-                                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                                                    }
-                                                                }
-                                                            });
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-
-
-                                    } else {
-                                        Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("O+")) {
-                    maxID = (snapshot.child("Users").getChildrenCount());
-                    long userID = 1040 + maxID + 1;
-                    HashMap<String, Object> userDataMap = new HashMap<>();
-                    userDataMap.put("uid", currentUserId);
-                    userDataMap.put("name", name);
-                    userDataMap.put("age", age);
-                    userDataMap.put("dateofBirth", dob);
-                    userDataMap.put("healthConditions", healthCondition);
-                    userDataMap.put("bloodGroup", bloodType);
-                    userDataMap.put("compatibleWith", "");
-                    userDataMap.put("donorStatus", donorStatus);
-                    userDataMap.put("mobileNumber", mobile);
-                    userDataMap.put("userNumber", String.valueOf(userID));
-
-                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-
-                                        RootRef.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                if ((snapshot.child("Users").child(currentUserId).exists())) {
-                                                    HashMap<String, Object> compatibleMap = new HashMap<>();
-
-                                                    compatibleMap.put("O-", true);
-                                                    compatibleMap.put("O+", true);
-
-                                                    RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
-                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    if (task.isSuccessful()) {
-                                                                        Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
-
-                                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                                        intent.putExtra("loc", "signUp");
-                                                                        startActivity(intent);
-                                                                        finish();
-                                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                                                    }
-                                                                }
-                                                            });
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-
-
-                                    } else {
-                                        Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("A-")) {
-                    maxID = (snapshot.child("Users").getChildrenCount());
-                    long userID = 1040 + maxID + 1;
-                    HashMap<String, Object> userDataMap = new HashMap<>();
-                    userDataMap.put("uid", currentUserId);
-                    userDataMap.put("name", name);
-                    userDataMap.put("age", age);
-                    userDataMap.put("dateofBirth", dob);
-                    userDataMap.put("healthConditions", healthCondition);
-                    userDataMap.put("bloodGroup", bloodType);
-                    userDataMap.put("compatibleWith", "");
-                    userDataMap.put("donorStatus", donorStatus);
-                    userDataMap.put("mobileNumber", mobile);
-                    userDataMap.put("userNumber", String.valueOf(userID));
-
-                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-
-                                        RootRef.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                if ((snapshot.child("Users").child(currentUserId).exists())) {
-                                                    HashMap<String, Object> compatibleMap = new HashMap<>();
                                                     compatibleMap.put("A-", true);
+                                                    compatibleMap.put("B-", true);
                                                     compatibleMap.put("O-", true);
-
-                                                    RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
-                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    if (task.isSuccessful()) {
-                                                                        Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
-
-                                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                                        intent.putExtra("loc", "signUp");
-                                                                        startActivity(intent);
-                                                                        finish();
-                                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                                                    }
-                                                                }
-                                                            });
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-
-
-                                    } else {
-                                        Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("A+")) {
-                    maxID = (snapshot.child("Users").getChildrenCount());
-                    long userID = 1040 + maxID + 1;
-                    HashMap<String, Object> userDataMap = new HashMap<>();
-                    userDataMap.put("uid", currentUserId);
-                    userDataMap.put("name", name);
-                    userDataMap.put("age", age);
-                    userDataMap.put("dateofBirth", dob);
-                    userDataMap.put("healthConditions", healthCondition);
-                    userDataMap.put("bloodGroup", bloodType);
-                    userDataMap.put("compatibleWith", "");
-                    userDataMap.put("donorStatus", donorStatus);
-                    userDataMap.put("mobileNumber", mobile);
-                    userDataMap.put("userNumber", String.valueOf(userID));
-
-                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-
-                                        RootRef.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                if ((snapshot.child("Users").child(currentUserId).exists())) {
-                                                    HashMap<String, Object> compatibleMap = new HashMap<>();
-                                                    compatibleMap.put("A-", true);
+                                                    compatibleMap.put("AB-", true);
                                                     compatibleMap.put("A+", true);
-                                                    compatibleMap.put("O-", true);
+                                                    compatibleMap.put("B+", true);
                                                     compatibleMap.put("O+", true);
-
-                                                    RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
-                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                @Override
-                                                                public void onComplete(@NonNull Task<Void> task) {
-                                                                    if (task.isSuccessful()) {
-                                                                        Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
-
-                                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                                        intent.putExtra("loc", "signUp");
-                                                                        startActivity(intent);
-                                                                        finish();
-                                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                                                    }
-                                                                }
-                                                            });
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-
-
-                                    } else {
-                                        Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("B-")) {
-                    maxID = (snapshot.child("Users").getChildrenCount());
-                    long userID = 1040 + maxID + 1;
-                    HashMap<String, Object> userDataMap = new HashMap<>();
-                    userDataMap.put("uid", currentUserId);
-                    userDataMap.put("name", name);
-                    userDataMap.put("age", age);
-                    userDataMap.put("dateofBirth", dob);
-                    userDataMap.put("healthConditions", healthCondition);
-                    userDataMap.put("bloodGroup", bloodType);
-                    userDataMap.put("compatibleWith", "");
-                    userDataMap.put("donorStatus", donorStatus);
-                    userDataMap.put("mobileNumber", mobile);
-                    userDataMap.put("userNumber", String.valueOf(userID));
-
-                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-
-                                        RootRef.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                if ((snapshot.child("Users").child(currentUserId).exists())) {
-                                                    HashMap<String, Object> compatibleMap = new HashMap<>();
-
-                                                    compatibleMap.put("B-", true);
-                                                    compatibleMap.put("O-", true);
+                                                    compatibleMap.put("AB+", true);
 
 
                                                     RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
@@ -566,8 +314,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("B+")) {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("O+")) {
                     maxID = (snapshot.child("Users").getChildrenCount());
                     long userID = 1040 + maxID + 1;
                     HashMap<String, Object> userDataMap = new HashMap<>();
@@ -593,9 +340,10 @@ public class SignUpActivity extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 if ((snapshot.child("Users").child(currentUserId).exists())) {
                                                     HashMap<String, Object> compatibleMap = new HashMap<>();
+
                                                     compatibleMap.put("O+", true);
-                                                    compatibleMap.put("B-", true);
-                                                    compatibleMap.put("O-", true);
+                                                    compatibleMap.put("A+", true);
+                                                    compatibleMap.put("AB+", true);
                                                     compatibleMap.put("B+", true);
 
                                                     RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
@@ -629,8 +377,257 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                }
-                else {
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("A-")) {
+                    maxID = (snapshot.child("Users").getChildrenCount());
+                    long userID = 1040 + maxID + 1;
+                    HashMap<String, Object> userDataMap = new HashMap<>();
+                    userDataMap.put("uid", currentUserId);
+                    userDataMap.put("name", name);
+                    userDataMap.put("age", age);
+                    userDataMap.put("dateofBirth", dob);
+                    userDataMap.put("healthConditions", healthCondition);
+                    userDataMap.put("bloodGroup", bloodType);
+                    userDataMap.put("compatibleWith", "");
+                    userDataMap.put("donorStatus", donorStatus);
+                    userDataMap.put("mobileNumber", mobile);
+                    userDataMap.put("userNumber", String.valueOf(userID));
+
+                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+                                        RootRef.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if ((snapshot.child("Users").child(currentUserId).exists())) {
+                                                    HashMap<String, Object> compatibleMap = new HashMap<>();
+                                                    compatibleMap.put("A-", true);
+                                                    compatibleMap.put("A+", true);
+                                                    compatibleMap.put("AB-", true);
+                                                    compatibleMap.put("AB+", true);
+
+
+                                                    RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+
+                                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                        intent.putExtra("loc", "signUp");
+                                                                        startActivity(intent);
+                                                                        finish();
+                                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                                                    }
+                                                                }
+                                                            });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
+
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("A+")) {
+                    maxID = (snapshot.child("Users").getChildrenCount());
+                    long userID = 1040 + maxID + 1;
+                    HashMap<String, Object> userDataMap = new HashMap<>();
+                    userDataMap.put("uid", currentUserId);
+                    userDataMap.put("name", name);
+                    userDataMap.put("age", age);
+                    userDataMap.put("dateofBirth", dob);
+                    userDataMap.put("healthConditions", healthCondition);
+                    userDataMap.put("bloodGroup", bloodType);
+                    userDataMap.put("compatibleWith", "");
+                    userDataMap.put("donorStatus", donorStatus);
+                    userDataMap.put("mobileNumber", mobile);
+                    userDataMap.put("userNumber", String.valueOf(userID));
+
+                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+                                        RootRef.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if ((snapshot.child("Users").child(currentUserId).exists())) {
+                                                    HashMap<String, Object> compatibleMap = new HashMap<>();
+
+                                                    compatibleMap.put("A+", true);
+
+                                                    compatibleMap.put("AB+", true);
+
+                                                    RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+
+                                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                        intent.putExtra("loc", "signUp");
+                                                                        startActivity(intent);
+                                                                        finish();
+                                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                                                    }
+                                                                }
+                                                            });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
+
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("B-")) {
+                    maxID = (snapshot.child("Users").getChildrenCount());
+                    long userID = 1040 + maxID + 1;
+                    HashMap<String, Object> userDataMap = new HashMap<>();
+                    userDataMap.put("uid", currentUserId);
+                    userDataMap.put("name", name);
+                    userDataMap.put("age", age);
+                    userDataMap.put("dateofBirth", dob);
+                    userDataMap.put("healthConditions", healthCondition);
+                    userDataMap.put("bloodGroup", bloodType);
+                    userDataMap.put("compatibleWith", "");
+                    userDataMap.put("donorStatus", donorStatus);
+                    userDataMap.put("mobileNumber", mobile);
+                    userDataMap.put("userNumber", String.valueOf(userID));
+
+                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+                                        RootRef.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if ((snapshot.child("Users").child(currentUserId).exists())) {
+                                                    HashMap<String, Object> compatibleMap = new HashMap<>();
+
+                                                    compatibleMap.put("B-", true);
+                                                    compatibleMap.put("B+", true);
+                                                    compatibleMap.put("AB-", true);
+                                                    compatibleMap.put("AB+", true);
+
+
+                                                    RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+
+                                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                        intent.putExtra("loc", "signUp");
+                                                                        startActivity(intent);
+                                                                        finish();
+                                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                                                    }
+                                                                }
+                                                            });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
+
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                } else if (!(snapshot.child("Users").child(currentUserId).exists()) && bloodType.equals("B+")) {
+                    maxID = (snapshot.child("Users").getChildrenCount());
+                    long userID = 1040 + maxID + 1;
+                    HashMap<String, Object> userDataMap = new HashMap<>();
+                    userDataMap.put("uid", currentUserId);
+                    userDataMap.put("name", name);
+                    userDataMap.put("age", age);
+                    userDataMap.put("dateofBirth", dob);
+                    userDataMap.put("healthConditions", healthCondition);
+                    userDataMap.put("bloodGroup", bloodType);
+                    userDataMap.put("compatibleWith", "");
+                    userDataMap.put("donorStatus", donorStatus);
+                    userDataMap.put("mobileNumber", mobile);
+                    userDataMap.put("userNumber", String.valueOf(userID));
+
+                    RootRef.child("Users").child(currentUserId).updateChildren(userDataMap)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+                                        RootRef.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if ((snapshot.child("Users").child(currentUserId).exists())) {
+                                                    HashMap<String, Object> compatibleMap = new HashMap<>();
+
+                                                    compatibleMap.put("B+", true);
+                                                    compatibleMap.put("AB+", true);
+
+                                                    RootRef.child("Users").child(currentUserId).child("compatibleWith").updateChildren(compatibleMap)
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+
+                                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                        intent.putExtra("loc", "signUp");
+                                                                        startActivity(intent);
+                                                                        finish();
+                                                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                                                    }
+                                                                }
+                                                            });
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
+
+                                    } else {
+                                        Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                } else {
                     Toast.makeText(SignUpActivity.this, "Please try again!", Toast.LENGTH_SHORT).show();
                 }
 

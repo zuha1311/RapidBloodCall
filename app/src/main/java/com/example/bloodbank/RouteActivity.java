@@ -62,7 +62,7 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
     private LatLng mDestination;
     private final static int MY_PERMISSIONS_REQUEST = 32;
     private Polyline mPolyline;
-    ArrayList<LatLng> mMarkerPoints;
+    private ArrayList<LatLng> mMarkerPoints;
     private String senderiD;
 
     @Override
@@ -79,7 +79,6 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         senderiD = getIntent().getStringExtra("senderID");
 
 
-
     }
 
 
@@ -92,11 +91,12 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 long requestID = (snapshot.child("Requests").child(senderiD).getChildrenCount());
-                {   Map<String,Object> td = (HashMap<String,Object>) snapshot.child("Requests").child(senderiD).child(String.valueOf(requestID)).getValue();
+                {
+                    Map<String, Object> td = (HashMap<String, Object>) snapshot.child("Requests").child(senderiD).child(String.valueOf(requestID)).getValue();
 
-                if(td==null) return;
+                    if (td == null) return;
 
-                double latDonor = Double.parseDouble(td.get("latitudeDonor").toString());
+                    double latDonor = Double.parseDouble(td.get("latitudeDonor").toString());
                     double longDonor = Double.parseDouble(td.get("longitudeDonor").toString());
                     double latRec = Double.parseDouble(td.get("latitudeReceiver").toString());
                     double longRec = Double.parseDouble(td.get("longitudeReceiver").toString());
@@ -112,8 +112,8 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
                     mDestination = new LatLng(latRec, longRec);*/
 
                     mMap = googleMap;
-                    mOrigin = new LatLng(latDonor,longDonor);
-                    mDestination = new LatLng(latRec,longRec);
+                    mOrigin = new LatLng(latDonor, longDonor);
+                    mDestination = new LatLng(latRec, longRec);
                     mMap.getUiSettings().setZoomControlsEnabled(true);
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
@@ -130,8 +130,8 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
 
                     mMap.addMarker(new MarkerOptions().position(mOrigin).title("Origin"));
                     mMap.addMarker(new MarkerOptions().position(mDestination).title("Destination"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mOrigin,8f));
-                    new TaskDirectionRequest().execute(buildRequestUrl(mOrigin,mDestination));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mOrigin, 8f));
+                    new TaskDirectionRequest().execute(buildRequestUrl(mOrigin, mDestination));
 
                 }
 
@@ -162,11 +162,10 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         String output = "json";
         String APIKEY = getResources().getString(R.string.google_maps_key);
 
-        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + param + "&key="+APIKEY;
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + param + "&key=" + APIKEY;
         Log.d("TAG", url);
         return url;
     }
-
 
 
     private String requestDirection(String requestedUrl) {
@@ -283,5 +282,5 @@ public class RouteActivity extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
-    }
+}
 

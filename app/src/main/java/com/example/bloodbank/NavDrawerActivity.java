@@ -21,11 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class NavDrawerActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    TextView userID,donorStatusNavDrawer;
+    private DrawerLayout drawerLayout;
+    private TextView userID, donorStatusNavDrawer;
     private FirebaseAuth mAuth;
-    String currentUserID;
-
+    private String currentUserID;
 
 
     @Override
@@ -45,19 +44,16 @@ public class NavDrawerActivity extends AppCompatActivity {
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
+                if (snapshot.exists()) {
                     String uniqueIdfromDB = snapshot.child("userNumber").getValue(String.class);
                     String statusfromDB = snapshot.child("donorStatus").getValue(String.class);
 
                     userID = findViewById(R.id.donorUniqueIdNavDrawer);
                     donorStatusNavDrawer = findViewById(R.id.donorStatusNavDrawer);
 
-                    userID.setText("Donor #"+uniqueIdfromDB);
-                    donorStatusNavDrawer.setText("Status : "+statusfromDB);
-                }
-                else
-                {
+                    userID.setText("Donor #" + uniqueIdfromDB);
+                    donorStatusNavDrawer.setText("Status : " + statusfromDB);
+                } else {
                     Toast.makeText(NavDrawerActivity.this, "error", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -69,65 +65,56 @@ public class NavDrawerActivity extends AppCompatActivity {
         });
     }
 
-    public void ClickMenu(View view)
-    {
+    public void ClickMenu(View view) {
         openDrawer(drawerLayout);
     }
 
-    private static  void openDrawer(DrawerLayout drawerLayout) {
+    private static void openDrawer(DrawerLayout drawerLayout) {
 
         drawerLayout.openDrawer(GravityCompat.START);
 
     }
 
-    public void ClickLogo(View view)
-    {
+    public void ClickLogo(View view) {
         closeDrawer(drawerLayout);
     }
 
     private static void closeDrawer(DrawerLayout drawerLayout) {
 
-        if(drawerLayout.isDrawerOpen(GravityCompat.START))
-        {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
 
     }
 
-    public void ClickHome(View view)
-    {
-      super.onBackPressed();
+    public void ClickHome(View view) {
+        super.onBackPressed();
     }
 
-    public void ClickMsg(View view)
-    {
+    public void ClickMsg(View view) {
         redirectActivity(this, ChatListActivity.class);
     }
 
     private void redirectActivity(Activity activity, Class aClass) {
 
-        Intent intent = new Intent(activity,aClass);
+        Intent intent = new Intent(activity, aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
     }
 
-    public void ClickRequests(View view)
-    {
-        redirectActivity(this,RequestsActivity.class);
+    public void ClickRequests(View view) {
+        redirectActivity(this, RequestsActivity.class);
     }
 
-    public void ClickHistory(View view)
-    {
-        redirectActivity(this,HistoryActivity.class);
+    public void ClickHistory(View view) {
+        redirectActivity(this, HistoryActivity.class);
     }
 
-    public void ClickSettings(View view)
-    {
-        redirectActivity(this,SettingActivity.class);
+    public void ClickSettings(View view) {
+        redirectActivity(this, SettingActivity.class);
     }
-    
-    public void ClickSignOut(View view)
-    {
+
+    public void ClickSignOut(View view) {
         logout(this);
     }
 

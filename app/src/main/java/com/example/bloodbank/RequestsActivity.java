@@ -39,8 +39,7 @@ import java.util.Objects;
 
 public class RequestsActivity extends AppCompatActivity {
 
-
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     private DatabaseReference receiveRequestsRef, usersRef, msgsRef;
     private String currentUserId, current_state, senderID;
     private FirebaseAuth mAuth;
@@ -96,8 +95,6 @@ public class RequestsActivity extends AppCompatActivity {
 
                 final String list_user_id = getRef(position).getKey();
                 final String requesterUID = model.getUid();
-
-
 
 
                 DatabaseReference getTypeRef = getRef(position).child("request_type").getRef();
@@ -161,8 +158,8 @@ public class RequestsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                       Intent intent = new Intent(RequestsActivity.this, DonorLocationActivity.class);
-                        intent.putExtra("senderID",list_user_id);
+                        Intent intent = new Intent(RequestsActivity.this, DonorLocationActivity.class);
+                        intent.putExtra("senderID", list_user_id);
                         startActivity(intent);
                     }
                 });
@@ -266,13 +263,13 @@ public class RequestsActivity extends AppCompatActivity {
     private void CancelDonationRequest(String requesterUID) {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference();
 
-        receiveRequestsRef.child(currentUserId).child(requesterUID).removeValue()
+        usersRef.child("Send_Requests").child(currentUserId).child(requesterUID).removeValue()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if (task.isSuccessful()) {
-                            receiveRequestsRef.child(requesterUID).child(currentUserId)
+                            usersRef.child("Send_Requests").child(requesterUID).child(currentUserId)
                                     .removeValue().addOnCompleteListener(
                                     new OnCompleteListener<Void>() {
                                         @Override

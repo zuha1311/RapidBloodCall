@@ -50,7 +50,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
         donateBloodEnabled = findViewById(R.id.donateBloodBtnEnabled);
         donateBloodDisabled = findViewById(R.id.donateBloodBtnDisabled);
         loc = getIntent().getStringExtra("loc").toString();
@@ -139,8 +138,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
 
-
-        
     }
 
     private void retireveUserInfoDirect() {

@@ -33,9 +33,8 @@ import java.util.HashMap;
 
 public class SendRequestsFromRequesterActivity extends AppCompatActivity {
 
-    String bloodGroup1;
     private DatabaseReference findDonorsRef, sendRequestsRef, acceptReqNotifyRef;
-    private String currentUserId, current_state, senderID,username="";
+    private String currentUserId, current_state, senderID, username = "";
     private FirebaseAuth mAuth;
     private RecyclerView showDonorsRecyclerView;
     private ImageView backBtn;
@@ -138,9 +137,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
                         manageRequests(receiverID, senderID);
                         if (current_state.equals("new")) {
                             holder.send.setText("CANCEL");
-                        }
-
-                        else {
+                        } else {
                             holder.send.setText("SEND");
 
                         }
@@ -150,7 +147,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
                 holder.message.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                      sendMessage(list_user_id);
+                        sendMessage(list_user_id);
 
 
                     }
@@ -175,14 +172,13 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
         findDonorsRef.child(list_user_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
+                if (snapshot.exists()) {
                     username = snapshot.child("userNumber").getValue().toString();
-                      Intent intent = new Intent(SendRequestsFromRequesterActivity.this,MsgActivity.class);
-                        intent.putExtra("loc","requesterSide");
-                        intent.putExtra("msg_user_id", list_user_id);
-                        intent.putExtra("msg_user_name", username);
-                        startActivity(intent);
+                    Intent intent = new Intent(SendRequestsFromRequesterActivity.this, MsgActivity.class);
+                    intent.putExtra("loc", "requesterSide");
+                    intent.putExtra("msg_user_id", list_user_id);
+                    intent.putExtra("msg_user_name", username);
+                    startActivity(intent);
                 }
             }
 
@@ -277,21 +273,19 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
 
-                                                HashMap<String,Object> msgsNotificationMap = new HashMap<>();
-                                                msgsNotificationMap.put("from",senderID);
-                                                msgsNotificationMap.put("type","msgsRequest");
+                                                HashMap<String, Object> msgsNotificationMap = new HashMap<>();
+                                                msgsNotificationMap.put("from", senderID);
+                                                msgsNotificationMap.put("type", "msgsRequest");
 
                                                 acceptReqNotifyRef.child(reciverID).push()
                                                         .setValue(msgsNotificationMap)
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
-                                                                if(task.isSuccessful())
-                                                                {
+                                                                if (task.isSuccessful()) {
                                                                     current_state = "request_sent";
 
                                                                     Toast.makeText(SendRequestsFromRequesterActivity.this, "Request sent to database", Toast.LENGTH_SHORT).show();
-
 
 
                                                                 }
@@ -315,7 +309,7 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
     public static class FindDonorViewHolder extends RecyclerView.ViewHolder {
 
         TextView userID, bloodgroup;
-        Button send,message;
+        Button send, message;
 
         public FindDonorViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -38,7 +38,6 @@ public class MobileActivity extends AppCompatActivity {
 
     private EditText mobileNo;
     private Button disabledBtn, enabledBtn;
-
     private View ellipse1d, ellipse2d;
 
 
