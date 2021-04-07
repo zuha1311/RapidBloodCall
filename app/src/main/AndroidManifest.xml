@@ -18,7 +18,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DonateBloodActivity"></activity>
+        <activity android:name=".HRActivity"></activity>
+        <activity android:name=".DonateBloodActivity" />
         <activity android:name=".NewRouteActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

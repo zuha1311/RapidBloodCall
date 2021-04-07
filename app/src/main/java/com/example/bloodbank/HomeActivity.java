@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     private String currentUserid;
     private String uid;
     private String loc;
+    private Button hospitalregister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,8 @@ public class HomeActivity extends AppCompatActivity {
        donateBtnEnabled = findViewById(R.id.donateBloodBtnEnabled);
        donateBtnDisabled = findViewById(R.id.donateBloodBtnDisabled);
        findDonors = findViewById(R.id.findDonorsBtn);
+       //hospitalregister = findViewById(R.id.registerAsHospital);
+
 
 
         loc = getIntent().getStringExtra("loc").toString();
@@ -73,7 +76,14 @@ public class HomeActivity extends AppCompatActivity {
         }
 
 
-        findDonors.setOnClickListener(new View.OnClickListener() {
+     /*   hospitalregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this,HRActivity.class);
+                startActivity(intent);
+            }
+        });
+*/        findDonors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomeActivity.this, FindDonorsActivity.class);

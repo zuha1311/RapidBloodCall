@@ -65,19 +65,24 @@ public class DonateBloodActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull DonateBloodViewHolder holder, int position, @NonNull Hospitals model) {
 
-                hospitalRef.addValueEventListener(new ValueEventListener() {
+                final String listUserId = getRef(position).getKey();
+                hospitalRef.child(listUserId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists())
-                        {
-                            String hname = snapshot.child("Name").getValue().toString();
-                            String haddress = snapshot.child("Address").getValue().toString();
-                            String htimings = snapshot.child("Timings").getValue().toString();
+                       if(snapshot.exists())
+                       {
+                           String hname = snapshot.child("name").getValue().toString();
+                           String haddress = snapshot.child("address").getValue().toString();
+                           String htimings = snapshot.child("timings").getValue().toString();
+                           String hmobile = snapshot.child("mobile").getValue().toString();
 
-                            holder.name.setText(hname);
-                            holder.address.setText(haddress);
-                            holder.timings.setText(htimings);
-                        }
+                           holder.name.setText(hname);
+                           holder.address.setText(haddress);
+                           holder.timings.setText("Timings: "+ htimings);
+                           holder.mobile.setText("Mobile No: "+hmobile);
+                       }
+
+
                     }
 
                     @Override
@@ -101,7 +106,7 @@ public class DonateBloodActivity extends AppCompatActivity {
 
     public static class DonateBloodViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name,address,timings;
+        TextView name,address,timings,mobile;
 
         public DonateBloodViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,6 +114,7 @@ public class DonateBloodActivity extends AppCompatActivity {
            name  = itemView.findViewById(R.id.hospitalName);
            address = itemView.findViewById(R.id.hospitalAddress);
            timings = itemView.findViewById(R.id.hospitalTimings);
+           mobile = itemView.findViewById(R.id.hospitalMobileNo);
 
 
         }

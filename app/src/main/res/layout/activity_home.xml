@@ -183,5 +183,11 @@
         android:visibility="invisible"
         android:contentDescription="TODO" />
 
+    <!--<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register as hospital"
+        android:id="@+id/registerAsHospital"/>-->
+
 
 </RelativeLayout>

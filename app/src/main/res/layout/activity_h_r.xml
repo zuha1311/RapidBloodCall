@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HRActivity"
+    android:background="@drawable/signupbg">
+
+    <TextView
+        android:id="@+id/hname"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center_horizontal|top"
+        android:text="Name of Hospital"
+        android:textAppearance="@style/sign_up"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/hNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hname"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/montserrat"
+        android:hint="Your Name Here"
+        android:inputType="text"
+        android:textColor="#ffffff"
+        android:textColorHint="#b9b9b9"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/haddress"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/hNameEditText"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center_horizontal|top"
+        android:text="Address"
+        android:textAppearance="@style/sign_up"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/hAddressEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/haddress"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/montserrat"
+        android:hint="DD/MM/YYYY"
+        android:inputType="text"
+        android:textColor="#ffffff"
+        android:textColorHint="#b9b9b9"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/htimings"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/hAddressEditText"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center_horizontal|top"
+        android:text="Timings"
+        android:textAppearance="@style/sign_up"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/hTimingsEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/htimings"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/montserrat"
+        android:hint="DD/MM/YYYY"
+        android:inputType="text"
+        android:textColor="#ffffff"
+        android:textColorHint="#b9b9b9"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/hmobile"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/hTimingsEditText"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center_horizontal|top"
+        android:text="Mobile"
+        android:textAppearance="@style/sign_up"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/hmobileEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hmobile"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/montserrat"
+        android:hint="DD/MM/YYYY"
+        android:inputType="text"
+        android:textColor="#ffffff"
+        android:textColorHint="#b9b9b9"
+        android:textSize="18sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/registerashospital"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:backgroundTint="#ffffff"
+        android:fontFamily="@font/montserrat"
+        android:text="Register as hospital"
+        android:textColor="#ff0404"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="11dp" />
+
+</RelativeLayout>
