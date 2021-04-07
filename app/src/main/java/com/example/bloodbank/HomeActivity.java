@@ -20,6 +20,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,8 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeActivity extends AppCompatActivity {
 
     private TextView fullNameTextView, bloodGroup, donorLine;
-    private ImageView donateBloodEnabled, donateBloodDisabled, findDonors, navMenu, donorStatus;
+    private ImageView donateBtnEnabled, donateBtnDisabled, findDonors;
+    private ImageView navMenu, donorStatus;
     private DatabaseReference usersSignUpRef, usersDirectRef;
     private FirebaseAuth mAuth;
     private String currentUserid;
@@ -50,10 +52,13 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        donateBloodEnabled = findViewById(R.id.donateBloodBtnEnabled);
-        donateBloodDisabled = findViewById(R.id.donateBloodBtnDisabled);
+       donateBtnEnabled = findViewById(R.id.donateBloodBtnEnabled);
+       donateBtnDisabled = findViewById(R.id.donateBloodBtnDisabled);
+       findDonors = findViewById(R.id.findDonorsBtn);
+
+
         loc = getIntent().getStringExtra("loc").toString();
-        findDonors = findViewById(R.id.findDonorsBtn);
+
         donorStatus = findViewById(R.id.donor_status_icon_approved);
         donorLine = findViewById(R.id.donation_Line);
         navMenu = findViewById(R.id.nav_menu);
@@ -86,13 +91,13 @@ public class HomeActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
-        
-        donateBloodEnabled.setOnClickListener(new View.OnClickListener() {
+
+        donateBtnEnabled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-                sendNotification();
+                Intent intent = new Intent(HomeActivity.this, DonateBloodActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -150,13 +155,13 @@ public class HomeActivity extends AppCompatActivity {
         if (donorStatus1.equals("Unapproved")) {
             donorStatus.setImageResource(R.drawable.waiting);
             donorLine.setText("You cannot donate");
-            donateBloodDisabled.setVisibility(View.VISIBLE);
-            donateBloodEnabled.setVisibility(View.INVISIBLE);
+            donateBtnDisabled.setVisibility(View.VISIBLE);
+            donateBtnEnabled.setVisibility(View.INVISIBLE);
         } else {
             donorStatus.setImageResource(R.drawable.approved);
             donorLine.setText("You can donate");
-            donateBloodDisabled.setVisibility(View.INVISIBLE);
-            donateBloodEnabled.setVisibility(View.VISIBLE);
+            donateBtnDisabled.setVisibility(View.INVISIBLE);
+            donateBtnEnabled.setVisibility(View.VISIBLE);
         }
         fullNameTextView = findViewById(R.id.helloTextName);
         bloodGroup = findViewById(R.id.bloodGroupTextBloodDrop);
@@ -181,13 +186,13 @@ public class HomeActivity extends AppCompatActivity {
                     if (statusfromDB.equals("Unapproved")) {
                         donorStatus.setImageResource(R.drawable.waiting);
                         donorLine.setText("You cannot donate");
-                        donateBloodDisabled.setVisibility(View.VISIBLE);
-                        donateBloodEnabled.setVisibility(View.INVISIBLE);
+                        donateBtnDisabled.setVisibility(View.VISIBLE);
+                        donateBtnEnabled.setVisibility(View.INVISIBLE);
                     } else if (statusfromDB.equals("Approved")) {
                         donorStatus.setImageResource(R.drawable.approved);
                         donorLine.setText("You can donate");
-                        donateBloodDisabled.setVisibility(View.INVISIBLE);
-                        donateBloodEnabled.setVisibility(View.VISIBLE);
+                        donateBtnDisabled.setVisibility(View.INVISIBLE);
+                        donateBtnEnabled.setVisibility(View.VISIBLE);
                     }
                     fullNameTextView = findViewById(R.id.helloTextName);
                     bloodGroup = findViewById(R.id.bloodGroupTextBloodDrop);

@@ -155,14 +155,14 @@
 
 
     <ImageView
-        android:id="@+id/findDonorsBtn"
         android:layout_width="265dp"
         android:layout_height="60dp"
+        android:id="@+id/findDonorsBtn"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="220dp"
-        android:src="@drawable/find_donors" />
-
+        android:src="@drawable/find_donors"
+        android:contentDescription="TODO"/>
     <ImageView
         android:id="@+id/donateBloodBtnEnabled"
         android:layout_width="265dp"
@@ -170,8 +170,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="140dp"
-        android:src="@drawable/donate_blood" />
-
+        android:src="@drawable/donate_blood"
+        android:contentDescription="TODO" />
     <ImageView
         android:id="@+id/donateBloodBtnDisabled"
         android:layout_width="265dp"
@@ -180,7 +180,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="140dp"
         android:src="@drawable/donate_blood_disabled"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:contentDescription="TODO" />
 
 
 </RelativeLayout>

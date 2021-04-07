@@ -86,7 +86,8 @@
         android:textAppearance="@style/get_otp"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:clickable="true"/>
 
     <Button
         android:id="@+id/get_otp_button_disabled"

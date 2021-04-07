@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ChatListActivity extends AppCompatActivity {
 
-    String[] names = {"Donor #12345", "Donor #5678", "Donor #7564","Donor #12345", "Donor #5678", "Donor #7564","Donor #12345", "Donor #5678", "Donor #7564"};
+
     RecyclerView recyclerView;
     ChatListAdapter chatListAdapter;
     ArrayList<Name> nameList = new ArrayList<>();
@@ -31,6 +31,7 @@ public class ChatListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_list);
 
         recyclerView = findViewById(R.id.recycler_view1);
+
         chatListAdapter = new ChatListAdapter(nameList, ChatListActivity.this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
@@ -45,13 +46,7 @@ public class ChatListActivity extends AppCompatActivity {
         });
 
 
-        for(int i = 0 ; i<names.length;i++)
-        {
-            String username = names[i];
 
-            Name name = new Name(username);
-            nameList.add(name);
-        }
     }
 
 

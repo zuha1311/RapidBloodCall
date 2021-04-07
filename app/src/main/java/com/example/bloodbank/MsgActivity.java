@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -171,24 +172,16 @@ public class MsgActivity extends AppCompatActivity {
 
     private void getIntentMethod() {
 
-      /* if(location.equals("requests"))
-       {
-           username.setText("Receiver #"+chatRecipient.get(position).getUsername());
-           position = getIntent().getIntExtra("position", -1);
-           String sender = getIntent().getStringExtra("sender");
-           if (sender!=null && sender.equals("chatDetails"))
-           {
-               chatRecipient = nameList;
-           }
-       }*/
-
         if (location.equals("requesterSide")) {
             usersRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.child(msgReceiverID).exists()) {
                         msgUsername = snapshot.child(msgReceiverID).child("userNumber").getValue().toString();
-                        username.setText("Donor #" + msgUsername);
+                        String name = "Donor #" + msgUsername;
+                        username.setText(name);
+                       /* RootRef.child("Messages").child(msgReceiverID).child(msgSenderID).child("name").setValue(name);*/
+
                     }
                 }
 
@@ -203,7 +196,9 @@ public class MsgActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.child(msgReceiverID).exists()) {
                         msgUsername = snapshot.child(msgReceiverID).child("userNumber").getValue().toString();
-                        username.setText("Receiver #" + msgUsername);
+                        String name = "Receiver #" + msgUsername;
+                        username.setText(name);
+                       /* RootRef.child("Messages").child(msgSenderID).child(msgReceiverID).child("name").setValue(name);*/
                     }
                 }
 
