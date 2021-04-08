@@ -4,6 +4,9 @@ public class Name {
 
     String username;
 
+    public Name() {
+    }
+
     public Name(String username) {
         this.username = username;
     }

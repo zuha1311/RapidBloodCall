@@ -40,7 +40,7 @@ import java.util.Objects;
 public class RequestsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private DatabaseReference receiveRequestsRef, usersRef, msgsRef;
+    private DatabaseReference receiveRequestsRef, usersRef;
     private String currentUserId, current_state, senderID;
     private FirebaseAuth mAuth;
     private ImageView backBtn;
@@ -58,7 +58,7 @@ public class RequestsActivity extends AppCompatActivity {
         currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         receiveRequestsRef = FirebaseDatabase.getInstance().getReference().child("Send_Requests");
-        msgsRef = FirebaseDatabase.getInstance().getReference().child("Messages from Not Accepted");
+
 
         recyclerView = findViewById(R.id.requestsRecyclerView);
         recyclerView.setHasFixedSize(true);
