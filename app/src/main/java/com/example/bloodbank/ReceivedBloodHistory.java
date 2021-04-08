@@ -2,44 +2,47 @@ package com.example.bloodbank;
 
 public class ReceivedBloodHistory {
 
-    String date,id,qty,location;
+    String patientAge, patientRelation, patientGender, patientBloodType;
 
-    public ReceivedBloodHistory(String date, String id, String qty, String location) {
-        this.date = date;
-        this.id = id;
-        this.qty = qty;
-        this.location = location;
+    public ReceivedBloodHistory() {
     }
 
-    public String getDate() {
-        return date;
+    public ReceivedBloodHistory(String patientAge, String patientRelation, String patientGender, String patientBloodType) {
+        this.patientAge = patientAge;
+        this.patientRelation = patientRelation;
+        this.patientGender = patientGender;
+        this.patientBloodType = patientBloodType;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getPatientAge() {
+        return patientAge;
     }
 
-    public String getId() {
-        return id;
+    public void setPatientAge(String patientAge) {
+        this.patientAge = patientAge;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getPatientRelation() {
+        return patientRelation;
     }
 
-    public String getQty() {
-        return qty;
+    public void setPatientRelation(String patientRelation) {
+        this.patientRelation = patientRelation;
     }
 
-    public void setQty(String qty) {
-        this.qty = qty;
+    public String getPatientGender() {
+        return patientGender;
     }
 
-    public String getLocation() {
-        return location;
+    public void setPatientGender(String patientGender) {
+        this.patientGender = patientGender;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getPatientBloodType() {
+        return patientBloodType;
+    }
+
+    public void setPatientBloodType(String patientBloodType) {
+        this.patientBloodType = patientBloodType;
     }
 }

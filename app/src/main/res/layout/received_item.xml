@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date : "
+        android:text="Age : "
         android:id="@+id/daterecievedTextView"
         android:fontFamily="@font/montserrat"
         android:textColor="#100c0c"
@@ -17,8 +17,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="11/12/18"
-        android:id="@+id/dateReceived"
+        android:text="20"
+        android:id="@+id/ageReceived"
         android:fontFamily="@font/montserrat"
         android:textColor="#100c0c"
         android:layout_toEndOf="@+id/daterecievedTextView"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="#43EQ"
-        android:id="@+id/donorID"
+        android:id="@+id/donorIDreceiedfrgament"
         android:fontFamily="@font/montserrat"
         android:textColor="#100c0c"
         android:layout_alignParentEnd="true"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Location : "
+        android:text="Gender : "
         android:id="@+id/locationTextViewreceived"
         android:fontFamily="@font/montserrat"
         android:textColor="#6a6a6a"
@@ -59,14 +59,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="123, XYZ Apt"
-        android:id="@+id/locationReceived"
+        android:text="Male"
+        android:id="@+id/genderReceived"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/montserrat"
         android:textColor="#6a6a6a"
         android:layout_toEndOf="@+id/locationTextViewreceived"
         android:textSize="13sp"
-        android:layout_below="@id/dateReceived"/>
+        android:layout_below="@id/ageReceived"/>
 
     <TextView
         android:id="@+id/qtyTextView"
@@ -76,23 +76,23 @@
         android:fontFamily="@font/montserrat"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="52dp"
-        android:text="Quantity : "
+        android:text="Relation : "
         android:textColor="#6a6a6a"
         android:textSize="13sp"
-        android:layout_below="@id/donorID"/>
+        android:layout_below="@id/donorIDreceiedfrgament"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5 units"
+        android:text="Other"
         android:layout_marginTop="5dp"
-        android:id="@+id/quantityReceived"
+        android:id="@+id/relationReceived"
         android:fontFamily="@font/montserrat"
         android:textColor="#6a6a6a"
         android:layout_alignParentEnd="true"
         android:gravity="right"
         android:textSize="13sp"
-        android:layout_below="@id/donorID"/>
+        android:layout_below="@id/donorIDreceiedfrgament"/>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

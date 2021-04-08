@@ -10,7 +10,7 @@
     <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Date : "
+    android:text="Age : "
     android:id="@+id/dateDonatedTextView"
     android:fontFamily="@font/montserrat"
     android:textColor="#100c0c"
@@ -18,8 +18,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="11/12/18"
-        android:id="@+id/dateDonated"
+        android:text="23"
+        android:id="@+id/ageDonated"
         android:fontFamily="@font/montserrat"
         android:textColor="#100c0c"
         android:layout_toEndOf="@+id/dateDonatedTextView"
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Location : "
+        android:text="Gender : "
         android:id="@+id/locationTextViewdonated"
         android:fontFamily="@font/montserrat"
         android:textColor="#6a6a6a"
@@ -60,8 +60,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="123, XYZ Apt"
-        android:id="@+id/locationdonated"
+        android:text="Female"
+        android:id="@+id/genderDonated"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/montserrat"
         android:textColor="#6a6a6a"
@@ -69,7 +69,7 @@
         android:textSize="13sp"
         android:maxLength="10"
         android:singleLine="true"
-        android:layout_below="@id/dateDonated"/>
+        android:layout_below="@id/ageDonated"/>
 
     <TextView
         android:id="@+id/qtyTextViewdonated"
@@ -79,7 +79,7 @@
         android:fontFamily="@font/montserrat"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="52dp"
-        android:text="Quantity : "
+        android:text="Relation : "
         android:textColor="#6a6a6a"
         android:textSize="13sp"
         android:layout_below="@id/receiverIDdonated"/>
@@ -87,9 +87,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5 units"
+        android:text="Other"
         android:layout_marginTop="5dp"
-        android:id="@+id/quantitydonated"
+        android:id="@+id/relationDonated"
         android:fontFamily="@font/montserrat"
         android:textColor="#6a6a6a"
         android:layout_alignParentEnd="true"

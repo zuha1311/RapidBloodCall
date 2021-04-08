@@ -2,48 +2,47 @@ package com.example.bloodbank;
 
 public class DonatedBloodHistory {
 
-    String date;
-    String quantity;
-    String location;
-    String id;
+   String patientAge, patientRelation, patientGender, patientBloodType;
 
-    public DonatedBloodHistory(String date, String quantity, String location, String id) {
-        this.date = date;
-        this.quantity = quantity;
-        this.location = location;
-        this.id = id;
+    public DonatedBloodHistory() {
     }
 
-
-    public String getDate() {
-        return date;
+    public DonatedBloodHistory(String patientAge, String patientRelation, String patientGender, String patientBloodType) {
+        this.patientAge = patientAge;
+        this.patientRelation = patientRelation;
+        this.patientGender = patientGender;
+        this.patientBloodType = patientBloodType;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getPatientAge() {
+        return patientAge;
     }
 
-    public String getQuantity() {
-        return quantity;
+    public void setPatientAge(String patientAge) {
+        this.patientAge = patientAge;
     }
 
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
+    public String getPatientRelation() {
+        return patientRelation;
     }
 
-    public String getLocation() {
-        return location;
+    public void setPatientRelation(String patientRelation) {
+        this.patientRelation = patientRelation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getPatientGender() {
+        return patientGender;
     }
 
-    public String getId() {
-        return id;
+    public void setPatientGender(String patientGender) {
+        this.patientGender = patientGender;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getPatientBloodType() {
+        return patientBloodType;
+    }
+
+    public void setPatientBloodType(String patientBloodType) {
+        this.patientBloodType = patientBloodType;
     }
 }
