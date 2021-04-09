@@ -21,6 +21,10 @@
         <activity android:name=".HRActivity"></activity>
         <activity android:name=".DonateBloodActivity" />
         <activity android:name=".NewRouteActivity" />
+
+        <meta-data android:name="com.here.sdk.access_key_id" android:value="TF6qb51DOGH3oLRZJKWAGA" />
+        <meta-data android:name="com.here.sdk.access_key_secret" android:value="VcEvscsvojXbezzMjDGw5gETXL1NlOnzNcw1xdhuaJ-nSvxx2neVHij4QYqu79EfVFxXVil2GRKa08-004_cYQ" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

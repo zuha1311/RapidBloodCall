@@ -76,6 +76,7 @@ public class RequesterLocationMapActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(RequesterLocationMapActivity.this, SendRequestsFromRequesterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

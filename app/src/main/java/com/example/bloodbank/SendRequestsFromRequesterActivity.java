@@ -115,21 +115,37 @@ public class SendRequestsFromRequesterActivity extends AppCompatActivity {
 
     private void findDonors(String bloodGroup, String senderID) {
 
-        FirebaseRecyclerOptions<FindDonors> option = null;
         Query query = findDonorsRef.orderByChild("compatibleWith/".concat(bloodGroup)).equalTo(true);
-
-        option = new FirebaseRecyclerOptions.Builder<FindDonors>()
+        FirebaseRecyclerOptions<FindDonors> option = new FirebaseRecyclerOptions.Builder<FindDonors>()
                 .setQuery(query, FindDonors.class)
                 .build();
+
         FirebaseRecyclerAdapter<FindDonors, FindDonorViewHolder> firebaseRecyclerAdapter
                 = new FirebaseRecyclerAdapter<FindDonors, FindDonorViewHolder>(option) {
             @Override
             protected void onBindViewHolder(@NonNull FindDonorViewHolder holder, int position, @NonNull FindDonors model) {
                 final String list_user_id = getRef(position).getKey();
-                holder.userID.setText(model.getUserNumber());
-                holder.bloodgroup.setText("Blood Group: " + model.getBloodGroup());
-                String receiverID = model.getUid();
+                findDonorsRef.child(list_user_id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                        if(snapshot.exists())
+                        {
+                            String userNumber = snapshot.child("userNumber").getValue().toString();
+                            String bloodGroup = snapshot.child("bloodGroup").getValue().toString();
+                            holder.userID.setText(userNumber);
+                            holder.bloodgroup.setText("Blood Group: "+bloodGroup);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                String receiverID = model.getUid();
 
                 holder.send.setOnClickListener(new View.OnClickListener() {
                     @Override

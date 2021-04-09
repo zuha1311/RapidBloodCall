@@ -32,13 +32,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.bloodbank.Chatting.ChatListAdapter.nameList;
+
 
 public class MsgActivity extends AppCompatActivity {
 
     private TextView username;
-    public static ArrayList<Name> chatRecipient = new ArrayList<>();
-    private int position = -1;
     private final List<Messages> msgsList = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
     private MessageAdapter messageAdapter;
