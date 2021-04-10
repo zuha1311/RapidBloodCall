@@ -26,8 +26,8 @@
             android:onClick="addRouteButtonClicked"
             android:textColor="#ffffff"
             android:fontFamily="@font/montserrat"
-            android:textStyle="bold
-"/>
+            android:textStyle="bold"/>
+
 
         <Button
             android:layout_width="0dp"
@@ -46,7 +46,10 @@
             android:textColor="#ffffff"
             android:fontFamily="@font/montserrat"
             android:textStyle="bold"/>
+
+
     </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
