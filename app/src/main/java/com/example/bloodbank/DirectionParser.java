@@ -66,7 +66,7 @@ public class DirectionParser {
         this.mapView = mapView;
         this.senderId = SenderId;
         Camera camera = mapView.getCamera();
-        camera.setTarget(new GeoCoordinates(52.520798, 13.409408));
+        camera.setTarget(new GeoCoordinates(20.5937, 78.9629));
         camera.setZoomLevel(12);
         Toast.makeText(context, senderId, Toast.LENGTH_SHORT).show();
 
@@ -90,9 +90,9 @@ public class DirectionParser {
                 {
 
                     String SlatD = snapshot.child("1").child("latitudeDonor").getValue().toString();
-                    String SlongD =  snapshot.child("1").child("latitudeDonor").getValue().toString();
-                    String SlatR = snapshot.child("1").child("latitudeDonor").getValue().toString();
-                    String SlongR =  snapshot.child("1").child("latitudeDonor").getValue().toString();
+                    String SlongD =  snapshot.child("1").child("longitudeDonor").getValue().toString();
+                    String SlatR = snapshot.child("1").child("latitudeReceiver").getValue().toString();
+                    String SlongR =  snapshot.child("1").child("longitudeReceiver").getValue().toString();
 
                     double latD = Double.parseDouble(SlatD);
                     double longD = Double.parseDouble(SlongD);
@@ -101,8 +101,8 @@ public class DirectionParser {
 
                     Toast.makeText(context, "Location in double"+latD+"long in double: "+longD, Toast.LENGTH_SHORT).show();
 
-                    startGeoCoordinates = createRandomGeoCoordinatesInViewport();
-                    destinationGeoCoordinates = createRandomGeoCoordinatesInViewport();
+                    startGeoCoordinates =new GeoCoordinates(latD,longD);
+                    destinationGeoCoordinates = new GeoCoordinates(latR,longR);
                     Waypoint startWaypoint = new Waypoint(startGeoCoordinates);
                     Waypoint destinationWaypoint = new Waypoint(destinationGeoCoordinates);
 
@@ -150,7 +150,7 @@ public class DirectionParser {
         long hours = sec / 3600;
         long minutes = (sec % 3600) / 60;
 
-        return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes);
+        return String.format(Locale.getDefault(), "%02d Hours : %02d Minutes", hours, minutes);
     }
 
     private String formatLength(int meters) {
@@ -177,8 +177,8 @@ public class DirectionParser {
         mapPolylines.add(routeMapPolyline);
 
         // Draw a circle to indicate starting point and destination.
-        addCircleMapMarker(startGeoCoordinates, R.drawable.ic_baseline_location_on_24);
-        addCircleMapMarker(destinationGeoCoordinates, R.drawable.ic_baseline_location_on_24);
+        addCircleMapMarker(startGeoCoordinates, R.drawable.red_dot);
+        addCircleMapMarker(destinationGeoCoordinates, R.drawable.red_dot);
 
         // Log maneuver instructions per route section.
         List<Section> sections = route.getSections();
@@ -226,8 +226,8 @@ public class DirectionParser {
                             showRouteOnMap(route);
 
                             // Draw a circle to indicate the location of the waypoints.
-                            addCircleMapMarker(waypoint1.coordinates, R.drawable.ic_baseline_remove_circle_24);
-                            addCircleMapMarker(waypoint2.coordinates, R.drawable.ic_baseline_remove_circle_24);
+                            addCircleMapMarker(waypoint1.coordinates, R.drawable.green_dot);
+                            addCircleMapMarker(waypoint2.coordinates, R.drawable.green_dot);
                         } else {
                             showDialog("Error while calculating a route:", routingError.toString());
                         }

@@ -66,7 +66,7 @@ public class RouteActivity extends AppCompatActivity {
     private MapViewLite mapView;
 
     private static final String TAG = RouteActivity.class.getSimpleName();
-    private DirectionParser1 directionParser;
+    private DirectionParser directionParser;
     private final static int MY_PERMISSIONS_REQUEST = 32;
     private PermissionRequester permissionsRequestor;
     private String senderiD;
@@ -115,7 +115,7 @@ public class RouteActivity extends AppCompatActivity {
             @Override
             public void onLoadScene(@Nullable MapScene.ErrorCode errorCode) {
                 if (errorCode == null) {
-                    directionParser = new DirectionParser1(RouteActivity.this, mapView);
+                    directionParser = new DirectionParser(senderiD,RouteActivity.this, mapView);
                 } else {
                     Log.d(TAG, "onLoadScene failed: " + errorCode.toString());
                 }
