@@ -6,6 +6,7 @@ The current supply of blood is the total number of units of whole blood and comp
 Objectives : The purpose of this project is to bridge the gap between donor availability and accessibility and provide dynamic location of registered donors. 
 
 The problems with the current systems are as follows:
+
 (i)	Static Location of Donor
 The current systems do not take the actual location of the donor into account, while searching them. This problem can be solved if the location of donor is tracked in real-time using GPS and location services. This will allow patients to find donors within their area and will also allow donors to donate blood to the patient in less time by covering less distance. 
 
