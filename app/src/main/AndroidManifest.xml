@@ -18,8 +18,8 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HRActivity"></activity>
-        <activity android:name=".DonateBloodActivity" />
+        <activity android:name=".Home.DonateBlood.HospitalRegistration"></activity>
+        <activity android:name=".Home.DonateBlood.DonateBloodActivity" />
 
         <meta-data android:name="com.here.sdk.access_key_id" android:value="TF6qb51DOGH3oLRZJKWAGA" />
         <meta-data android:name="com.here.sdk.access_key_secret" android:value="VcEvscsvojXbezzMjDGw5gETXL1NlOnzNcw1xdhuaJ-nSvxx2neVHij4QYqu79EfVFxXVil2GRKa08-004_cYQ" />
@@ -37,31 +37,31 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".RouteActivity"
+            android:name=".Home.NavigationDrawer.Requests.RouteActivity"
             android:label="@string/title_activity_route" />
-        <activity android:name=".DonorLocationActivity" />
-        <activity android:name=".SendRequestsFromRequesterActivity" />
-        <activity android:name=".RequesterLocationMapActivity" />
-        <activity android:name=".Chatting.ChatListActivity" />
-        <activity android:name=".FindDonorsActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".HistoryActivity" />
-        <activity android:name=".RequestsActivity" />
-        <activity android:name=".MsgActivity" />
-        <activity android:name=".NavDrawerActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".OTPActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".Home.NavigationDrawer.Requests.DonorLocationActivity" />
+        <activity android:name=".Home.FindDonors.SendRequestsFromRequesterActivity" />
+        <activity android:name=".Home.FindDonors.RequesterLocationMapActivity" />
+        <activity android:name=".Home.NavigationDrawer.Messages.ChatListActivity" />
+        <activity android:name=".Home.FindDonors.FindDonorsActivity" />
+        <activity android:name=".Home.NavigationDrawer.Settings.SettingActivity" />
+        <activity android:name=".Home.NavigationDrawer.History.HistoryActivity" />
+        <activity android:name=".Home.NavigationDrawer.Requests.RequestsActivity" />
+        <activity android:name=".Home.NavigationDrawer.Messages.MsgActivity" />
+        <activity android:name=".Home.NavigationDrawer.NavDrawerActivity" />
+        <activity android:name=".Home.HomeActivity" />
+        <activity android:name=".Registration.SignUpActivity" />
+        <activity android:name=".OTPVerification.OTPActivity" />
+        <activity android:name=".IntroductionScreens.SplashActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".MobileActivity" />
+        <activity android:name=".OTPVerification.MobileActivity" />
         <activity
-            android:name=".SlidersActivity"
+            android:name=".IntroductionScreens.SlidersActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <meta-data
@@ -72,7 +72,7 @@
             android:value="@integer/google_play_services_version" />
 
         <service
-            android:name=".NotificationService"
+            android:name=".util.NotificationService"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="your.app.domain.NotificationService" />

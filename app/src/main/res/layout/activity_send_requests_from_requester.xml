@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SendRequestsFromRequesterActivity"
+    tools:context=".Home.FindDonors.SendRequestsFromRequesterActivity"
     android:background="#ffffff">
     <RelativeLayout
         android:id="@+id/requestsRelLayout"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".DonateBloodActivity">
+    tools:context=".Home.DonateBlood.DonateBloodActivity">
     <RelativeLayout
         android:id="@+id/donateBloodRelLayout"
         android:layout_width="match_parent"
