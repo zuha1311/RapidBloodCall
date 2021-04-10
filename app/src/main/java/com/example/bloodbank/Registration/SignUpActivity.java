@@ -109,6 +109,11 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }*/
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     private void saveProfileInfo(final String name, final String age, final String dob, final String healthCondition, final String bloodType, final String donorStatus, final String mobile) {
 
         final DatabaseReference RootRef;
@@ -152,6 +157,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
                                                                         Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SignUpActivity.this, "Please close the app and open it again",Toast.LENGTH_LONG).show();
 
                                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -214,6 +220,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
                                                                         Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SignUpActivity.this, "Please close the app and open it again",Toast.LENGTH_LONG).show();
+
 
                                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -282,6 +290,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
                                                                         Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SignUpActivity.this, "Please close the app and open it again",Toast.LENGTH_LONG).show();
+
 
                                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -345,6 +355,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
                                                                         Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SignUpActivity.this, "Please close the app and open it again",Toast.LENGTH_LONG).show();
+
 
                                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -408,6 +420,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
                                                                         Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SignUpActivity.this, "Please close the app and open it again",Toast.LENGTH_LONG).show();
+
 
                                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -470,6 +484,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
                                                                         Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SignUpActivity.this, "Please close the app and open it again",Toast.LENGTH_LONG).show();
+
 
                                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -534,6 +550,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
                                                                         Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SignUpActivity.this, "Please close the app and open it again",Toast.LENGTH_LONG).show();
+
 
                                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -595,6 +613,8 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
                                                                         Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
+                                                                        Toast.makeText(SignUpActivity.this, "Please close the app and open it again",Toast.LENGTH_LONG).show();
+
 
                                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -631,6 +651,8 @@ public class SignUpActivity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 
