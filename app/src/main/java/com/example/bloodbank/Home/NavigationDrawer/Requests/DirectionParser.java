@@ -60,8 +60,8 @@ public class DirectionParser {
         this.mapView = mapView;
         this.senderId = SenderId;
         Camera camera = mapView.getCamera();
-        camera.setTarget(new GeoCoordinates(20.5937, 78.9629));
-        camera.setZoomLevel(12);
+        camera.setTarget(new GeoCoordinates(27.8974, 78.0880));
+        camera.setZoomLevel(16);
         Toast.makeText(context, senderId, Toast.LENGTH_SHORT).show();
 
         try {

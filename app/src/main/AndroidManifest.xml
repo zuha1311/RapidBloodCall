@@ -21,8 +21,8 @@
         <activity android:name=".Home.DonateBlood.HospitalRegistration"></activity>
         <activity android:name=".Home.DonateBlood.DonateBloodActivity" />
 
-        <meta-data android:name="com.here.sdk.access_key_id" android:value="YOUR_KEY_HERE" />
-        <meta-data android:name="com.here.sdk.access_key_secret" android:value="YOUR_KEY_HERE" />
+        <meta-data android:name="com.here.sdk.access_key_id" android:value="TF6qb51DOGH3oLRZJKWAGA" />
+        <meta-data android:name="com.here.sdk.access_key_secret" android:value="VcEvscsvojXbezzMjDGw5gETXL1NlOnzNcw1xdhuaJ-nSvxx2neVHij4QYqu79EfVFxXVil2GRKa08-004_cYQ" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
